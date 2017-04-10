@@ -7,5 +7,4 @@ storyboard 2
 
 Claire storyboards
 [Storyboard 3](/images/claire-storyboard3.jpg)
-### storyboard 2
 [Storyboard 4](/images/claire-storyboard4.jpg)
