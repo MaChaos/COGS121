@@ -1,6 +1,7 @@
 ##Max
 ###storyboard 1
-<img src="/images/max-storyboard1.jpg" alt="Storyboard 1" style="width: 800px;"/>
+![Storyboard 1](/Users/MaxMao/Desktop/COGS121/images/max-storyboard2.jpg =700x)
 ###storyboard 2
-<img src="/images/max-storyboard2.jpg" alt="Storyboard 2" style="width: 800px;"/>
+![Storyboard 2](/images/max-storyboard2.jpg)
+
 
