@@ -10,5 +10,5 @@ Claire storyboards
 [Storyboard 4](/images/claire-storyboard4.jpg)
 
 April storyboards
-[Storyboard 5](/images/april-storyboard1.jpg)
+[Storyboard 5](/images/april-storyboard1.JPG)
 [Storyboard 6](/images/april-storyboard2.jpg)
