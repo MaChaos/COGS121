@@ -6,8 +6,8 @@ storyboard 2
 
 
 Claire storyboards
-[Storyboard 3](/images/claire-storyboard3.jpg)
-[Storyboard 4](/images/claire-storyboard4.jpg)
+[Storyboard 3](/images/claire-storyboard3.JPG)
+[Storyboard 4](/images/claire-storyboard4.JPG)
 
 April storyboards
 [Storyboard 5](/images/april-storyboard1.JPG)
