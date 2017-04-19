@@ -6,7 +6,7 @@
 ### Claire Paper Prototypes
 ![Prototype 2](/images/claire-paperprototype1.jpg)
 ![Prototype 3](/images/claire-paperprototype2.jpg)
-![Prototype 4](/images/claire-paperprototype3.jpg)
+![Prototype 4](/images/claire-paperprototype3.JPG)
 
 ### April Paper Prototypes
 ![Prototype 5](/images/april-storyboard1.JPG)
