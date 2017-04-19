@@ -1,6 +1,7 @@
 ### Max
 ## Paper Prototype 1
-![Prototype 1](/images/max-storyboard1.jpg)
+![Prototype 1](/images/max-papermodel.jpg)
+![Prototype 1](/images/max-papermodel2.jpg)
 
 
 ### Claire Paper Prototypes
