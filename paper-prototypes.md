@@ -17,6 +17,6 @@ My paper prototype displays interactions from a user who wants to see past trips
 ![Prototype 5](/images/April-paperprototype.jpg)
 
 ### Devon Paper Prototypes
-![Prototype 7](/images/devon-storyboard1.jpg)
-![Prototype 8](/images/devon-storyboard2.jpg)
+My paper prototype displays the user's feed, once the account has been setup, including their active trip and their friends feed.  My prototype also displays the trip creation process and beginning of adding information to destinations.
+![Prototype 7](/images/devon-paperprototype.jpg)
 
