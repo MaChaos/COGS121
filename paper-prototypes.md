@@ -12,8 +12,8 @@ This one focuses on the app index page, where we focus more so on how to view di
 ![Prototype 4](/images/claire-paperprototype3.JPG)
 
 ### April Paper Prototypes
-![Prototype 5](/images/april-storyboard1.JPG)
-![Prototype 6](/images/april-storyboard2.jpg)
+My paper prototype displays interactions from a user who wants to see past trips and edit them as well a user who wants to create new trips. To create a new trip, a user must first enter locations they have traveled to. Our app will then generate pins and a show a route. To edit an already created trip, users can click on the trip and then the edit button. From there, they will be able to move around the pins on the map and edit their diary entry.
+![Prototype 5](/images/april-paperprototype.jpg)
 
 ### Devon Paper Prototypes
 ![Prototype 7](/images/devon-storyboard1.jpg)
