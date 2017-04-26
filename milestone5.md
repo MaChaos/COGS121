@@ -8,5 +8,6 @@ Devon - Working on overall structure of website and social media sharing
 
 Claire - Working on blog functionatlity
 
-![Map Functionality Screenshot] (/images/milestone5map.jpg)
+
+![Map Functionality Screenshot](/images/milestone5map.jpg)
 
