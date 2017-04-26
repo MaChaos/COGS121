@@ -1,4 +1,4 @@
-Milestone 5
+### Milestone 5
 
 Max - Worked on map and map interaction (search, pins, etc.)
 
