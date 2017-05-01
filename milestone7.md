@@ -1,12 +1,4 @@
-**Zhiyu**
-
-**April**
-
-**Claire**
-
-**Devon**
-
-![Video Prototype](/images/paper-model-video.mp4)
-
+**Video Prototype**
+[](https://youtu.be/A-c1UqmR0bE)
 
 
