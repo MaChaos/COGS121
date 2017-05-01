@@ -6,7 +6,7 @@
 
 **Devon**
 
-![Video Prototype](/images/paper-model-video.mov)
+![Video Prototype](/images/paper-model-video.mp4)
 
 
 
