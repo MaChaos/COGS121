@@ -1,0 +1,57 @@
+#destlist {
+  width: 48%;
+  display: inline-block;
+}
+.addBtn, .card li {
+
+  line-height: 3rem;
+  width: 99%;
+  border: 0px solid #C4C4C4;
+  color: #F8F8F8;
+  background-color: #60b01a;
+  border-radius: 2px;
+  height: 35px;
+  margin: 2px;
+  font-size: 17px;
+  font-family: monospace;
+  text-align: center;
+  padding-bottom: 5px;
+}
+input {
+  border-radius: 2px;
+/* border-style: none; */
+  width: 99%;
+  line-height: 3rem;
+  height: 35px;
+
+  border: 0.5px solid #C4C4C4;
+}
+ul {
+  -webkit-margin-before: 0;
+  -webkit-padding-start: 0;
+}
+#addmap {
+  margin-left: auto;
+  margin-right: auto;
+  width: 90%;
+  height: 500px;
+}
+#map {
+  display: inline-block;
+  width: 48%;
+  height: 100%;
+}
+.newmarker {
+  /*background-image: url('https://www.mapbox.com/mapbox-gl-js/assets/washington-monument.jpg');*/
+
+  /*background-size: cover;*/
+  background-color: #888;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.mapboxgl-popup {
+  max-width: 200px;
+}
