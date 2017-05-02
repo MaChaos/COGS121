@@ -71,35 +71,28 @@ app.post('/trips', (req, res) => {
 })
 
 /* put method replaces the last entry in the db with an already preset one from vegas*/
-app.put('/trips', (req, res) => 
-{
-  // db.collection('trips')
-  // .findOneAndUpdate({}, 
-  // {
-  //   $set: {
-  //     trip: req.body.trip,
-  //     location: req.body.location
-  //   }
-  // }, 
-  // {
-  //   sort: {_id: -1}, //updates last entry
-  //   upsert: true //forcecreate new entry if no entries found 
-  // }, 
-  // (err, result) => 
-  // {
-  //   if (err) return res.send(err)
-  //   res.send(result)
-db.collection('trips')
-  .find().limit(1).sort({$natural: -1}).toArray(function(err, lastObject){
-  	lastObject = lastObject[0]
-  	lastObject.trip = 'My Wild Night Out'
-  	lastObject.location = 'LV'
-  	db.collection('trips').update({_id: lastObject._id}, lastObject, () => {
-  				
-  		setTimeout(function(){
-  			console.log("after sleep");
-  			res.redirect('/')
-  		}, 10000)
-  	})
+ app.put('/trips', (req, res) => {
+      db.collection('trips')
+      .findOneAndUpdate({location: 'San Diego'}, {
+        $set: {
+              trip: req.body.trip,
+      location: req.body.location
+        }
+      }, {
+        sort: {_id: -1}, //updates last entry
+        upsert: true  //force to create a new entry if no entries are found
+      }, (err, result) => {
+        if (err) return res.send(err)
+        res.send(result)
+      })
+    })
+
+
+ //delete method
+ app.delete('/trips', (req, res) => {
+  db.collection('trips').findOneAndDelete({location: req.body.location},
+  (err, result) => {
+    if (err) return res.send(500, err)
+    res.send('Las Vegas Trip has now been deleted.')
   })
 })
