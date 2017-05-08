@@ -6,7 +6,8 @@
 *I made a paper prototype of the side bar filtering functionality. I want for there to be a way to search what type of category you are interested in searching and/or the city that you are coming from. You can select both category (ex: foodie) and / or select location (ex: San Diego). if you would like to see all entries of "must eat entries for foodies", then you can also just only search for one entry.*
 ![Claire](/images/milestone8-claire1.JPG)
 ![Claire](/images/milestone8-claire2.JPG)
-
+*Devon - I made a protoype of the user's history of trips (timeline), profile along with tag selections to filter for releated trips to you, and a search with destination and tags to search with.
+![Devon](/images/milestone8devon.jpg)
 
 
 
