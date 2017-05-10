@@ -5,8 +5,24 @@ $(document).ready(function() {
 })
 function initializePage() {
   sortable('.dests');
+  highlight();
   // buttonclick();
 
+}
+// function log(position, mkrcolor, highcolor) {
+//   $("#log").html("position: " + position + "marker Color: " + mkrcolor +)
+// }
+function highlight() {
+  $(window).scroll(function(){
+    var height = $(".highlight").offset().top - $(window).scrollTop();
+    // console.log(height);
+    $("#log").html("position: " + height + "\n marker Color: " + $("#newmarker").css("background-color") + "HighColor: " + $("highlight").css("color"));
+    if (height < 100) {
+      // console.log(height);
+
+      $("#newmarker").css("background-color", $("#highlight").css("color"));
+    }
+  })
 }
 function newDest() {
   var dest = document.getElementById("myInput").value;

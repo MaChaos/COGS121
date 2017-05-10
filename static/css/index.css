@@ -1,5 +1,13 @@
-#destlist {
+body {
+  background-color: #F8F8F8;
+}
+#textwindow {
   width: 48%;
+  display: inline-block;
+  font-size: 20px;
+}
+#destlist {
+  width: 100%;
   display: inline-block;
 }
 .addBtn, .card li {
@@ -33,12 +41,14 @@ ul {
 #addmap {
   margin-left: auto;
   margin-right: auto;
-  width: 90%;
+  width: 48%;
   height: 500px;
+  position: fixed;
+  display: inline-block;
 }
 #map {
   display: inline-block;
-  width: 48%;
+  width: 100%;
   height: 100%;
 }
 .newmarker {
