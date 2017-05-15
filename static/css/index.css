@@ -6,6 +6,46 @@ body {
   display: inline-block;
   font-size: 20px;
 }
+.place-icon {
+  width: 16px;
+  height: 16px;
+}
+.place-cards li {
+  border: 1px;
+  border-color: #0F0F0F;
+  border-style: dashed;
+  list-style-type: none;
+}
+/*new CSS for the Google Maps API*/
+#pac-input {
+  background-color: #fff;
+  margin-left: 12px;
+  padding: 0 11px 0 13px;
+  text-overflow: ellipsis;
+  width: 400px;
+}
+#pac-input:focus {
+  border-color: #4d90fe;
+}
+.infowindow-content .title {
+  font-weight: bold;
+}
+
+.infowindow-content {
+  display: none;
+}
+li .infowindow-content {
+  display: inline;
+}
+#map .infowindow-content {
+  display: inline;
+}
+
+
+
+
+
+
 #destlist {
   width: 100%;
   display: inline-block;
@@ -42,8 +82,8 @@ ul {
   margin-left: auto;
   margin-right: auto;
   width: 48%;
-  height: 500px;
-  position: fixed;
+  height: 400px;
+  position: absolute;
   display: inline-block;
 }
 #map {

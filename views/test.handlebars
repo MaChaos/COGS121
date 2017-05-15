@@ -33,29 +33,38 @@
       <button type="submit">Submit</button>
     </form>
   </div>
-  <div id="addmap">
-    <div id="log">
 
-    </div>
-    <div class="editable"></div>
-    <script>
-      var editor = new MediumEditor('.editable');
-    </script>
+  <div id="addmap">
+
     <div id="destlist" class="header">
-      Destinations
-      <input type="text" id="myInput" placeholder="Your next destination...">
+
+      <!-- input place for autocomplete address -->
+      <div class="pac-card" id="pac-card">
+        <div id="title">
+          Enter your next destinations
+        </div>
+        <div id="pac-container">
+          <input type="text" id="pac-input" placeholder="Your next destination...">
+        </div>
+      </div>
+      <!-- dropdown -->
+      <!-- <div class="infowindow-content">
+        <img src="" width="16" height="16" class="place-icon"/>
+        <span id="place-name" class="title"></span><br />
+        <span id="place-address"></span>
+      </div> -->
+      <!-- destination list -->
+      <p4>Destinations</p4>
       <div onclick="newDest()" class="addBtn">Add</div>
-      <ul class="dests card" id="id_dest">
+      <ul class="place-cards" id="place-cards">
       </ul>
     </div>
     <div id='map'></div>
+
   </div>
   <!-- <div id='map' style='width: 500px; height: 500px;'></div> -->
 
-  <div id='newmarker' class="newmarker" style="width:25px; height:25px; border-radius: 50%;"> </div>
-
-
-  <script>
+  <!-- <script>
     mapboxgl.accessToken = 'pk.eyJ1Ijoiemh1eW1hbyIsImEiOiJjajFvbjB2NTAwMTVtMzJtaGkwc2N1dW0zIn0.tNPQ9yER6BTqqrBaUi3T2A';
     var library = [-117.2362022, 32.88]
     var mapping = new mapboxgl.Map({
@@ -73,11 +82,15 @@
     .setLngLat(library)
     .setPopup(popup)
     .addTo(mapping);
+  </script> -->
+
+  <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCVX-hvAGl21JA0nBii3fNYTyec2SOKLqw&libraries=places&callback=initMap">
   </script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   <script src="./js/jquery.ajax-cross-origin.min.js"></script>
   <script src="/js/index.js"></script>
-  <script src="./js/html.sortable.min.js"></script>
+  <script src="./js/Sortable.js"></script>
   <script src="./js/turf.min.js"></script>
   <!-- <script src="js/medium-editor.js"></script> -->
 <link rel="stylesheet" href="css/medium-editor.css">
