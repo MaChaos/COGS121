@@ -1,11 +1,11 @@
 body {
   background-color: #F8F8F8;
 }
-#textwindow {
+/*#textwindow {
   width: 48%;
   display: inline-block;
   font-size: 20px;
-}
+}*/
 .place-icon {
   width: 16px;
   height: 16px;
@@ -22,7 +22,7 @@ body {
   margin-left: 12px;
   padding: 0 11px 0 13px;
   text-overflow: ellipsis;
-  width: 400px;
+  /*width: 400px;*/
 }
 #pac-input:focus {
   border-color: #4d90fe;
@@ -68,7 +68,7 @@ li .infowindow-content {
 input {
   border-radius: 2px;
 /* border-style: none; */
-  width: 99%;
+  /*width: 80%;*/
   line-height: 3rem;
   height: 35px;
 
@@ -81,7 +81,7 @@ ul {
 #addmap {
   margin-left: auto;
   margin-right: auto;
-  width: 48%;
+  /*width: 48%;*/
   height: 400px;
   position: absolute;
   display: inline-block;

@@ -15,7 +15,8 @@
     "dev": "nodemon app.js"
   },
   "devDependencies": {
-    "nodemon": "^1.11.0"
+    "nodemon": "^1.11.0",
+    "tether": "^1.4.0"
   },
   "repository": {
     "type": "git",

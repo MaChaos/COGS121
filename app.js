@@ -50,7 +50,8 @@ app.engine('handlebars',handlebars());
 app.set('view engine', 'handlebars');
 app.use(express.static(__dirname + '/static'));
 
-app.get('/', index.view);
+app.get('/', index.test);
+app.get('/index', index.view)
 // app.get('/', (req, res) => {
 //   db.collection('test').find().toArray((err, result) => {
 //     if (err) return console.log(err)

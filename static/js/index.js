@@ -10,9 +10,7 @@ function initializePage() {
   // buttonclick();
 
 }
-// function print(variable){
-//   console.log(variable + ": " + variable);
-// }
+
 // use Google Maps API to create a mapbox
 function initMap() {
   var geisel = {lat: 32.88, lng: -117.2362022};
