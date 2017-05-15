@@ -11,6 +11,6 @@ exports.test = function (req, res) {
   db.collection('test').find().toArray((err, result) => {
     if (err) return console.log(err)
     // renders index.ejs
-    res.render('test', {quotes: result})
+    res.render('index', {quotes: result})
   })
 }

@@ -16,7 +16,8 @@ function initMap() {
   var geisel = {lat: 55.675877, lng: 12.567678};
   map = new google.maps.Map(document.getElementById('map'), {
     zoom: 14,
-    center: geisel
+    center: geisel,
+
   });
 
   var card = document.getElementById('pac-card');
