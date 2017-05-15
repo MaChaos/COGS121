@@ -13,7 +13,7 @@ function initializePage() {
 
 // use Google Maps API to create a mapbox
 function initMap() {
-  var geisel = {lat: 32.88, lng: -117.2362022};
+  var geisel = {lat: 55.675877, lng: 12.567678};
   map = new google.maps.Map(document.getElementById('map'), {
     zoom: 14,
     center: geisel

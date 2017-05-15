@@ -19,10 +19,11 @@ body {
 /*new CSS for the Google Maps API*/
 #pac-input {
   background-color: #fff;
-  margin-left: 12px;
+  /*margin-left: 12px;*/
   padding: 0 11px 0 13px;
+  margin-bottom: 10px;
   text-overflow: ellipsis;
-  /*width: 400px;*/
+  width: 100%;
 }
 #pac-input:focus {
   border-color: #4d90fe;
@@ -42,15 +43,31 @@ li .infowindow-content {
 }
 
 
+.item {
+  .transition(0);
+}
+.carousel-caption {
+  top: 24%;
+}
 
-
-
-
+.navbar-inverse {
+     background-color: #F8F8F8 ;
+     border-color: transparent;
+}
+.padding-left-zero {
+  padding-left: 0;
+}
+.blog-sidebar {
+  padding-right: 25px;
+}
+#navbar ul li a, .color-white {
+  color: #F8F8F8;
+}
 #destlist {
   width: 100%;
   display: inline-block;
 }
-.addBtn, .card li {
+.card li {
 
   line-height: 3rem;
   width: 99%;

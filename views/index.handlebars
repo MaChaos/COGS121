@@ -9,8 +9,7 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="">
     <meta name="author" content="">
-    <script src='https://api.mapbox.com/mapbox-gl-js/v0.36.0/mapbox-gl.js'></script>
-    <link href='https://api.mapbox.com/mapbox-gl-js/v0.36.0/mapbox-gl.css' rel='stylesheet' />
+
     <link href="./css/index.css" rel="stylesheet"/>
     <link href="./css/bootstrap/carousel.css" rel="stylesheet"/>
     <link href="./css/bootstrap/blog.css" rel="stylesheet"/>
@@ -21,7 +20,7 @@
   <div class="navbar-wrapper">
       <div class="container">
 
-        <nav class="navbar navbar-inverse navbar-static-top">
+        <nav class="navbar navbar-static-top color-white">
           <div class="container">
             <div class="navbar-header">
               <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -30,7 +29,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
               </button>
-              <a class="navbar-brand" href="#">Project name</a>
+              <a class="navbar-brand color-white" href="#">Project name</a>
             </div>
             <div id="navbar" class="navbar-collapse collapse">
               <ul class="nav navbar-nav">
@@ -72,9 +71,11 @@
           <img class="first-slide" src="/img/copenhagen/johan-mouchet-97136.jpg" alt="First slide">
           <div class="container">
             <div class="carousel-caption">
-              <h1>Example headline.</h1>
-              <p>Note: If you're viewing this page via a <code>file://</code> URL, the "next" and "previous" Glyphicon buttons on the left and right might not load/display properly due to web browser security rules.</p>
-              <p><a class="btn btn-lg btn-primary" href="#" role="button">Sign up today</a></p>
+              <h1>My Copenhagen</h1>
+              <p>Copenhagen, Denmark’s capital, sits on the coastal islands of Zealand and Amager. It’s linked to Malmo in southern Sweden by the Öresund Bridge. Indre By, the city's historic center, contains Frederiksstaden, an 18th-century rococo district, home to the royal family’s Amalienborg Palace. Nearby is Christiansborg Palace and the Renaissance-era Rosenborg Castle, surrounded by gardens and home to the crown jewels.</p>
+              <p>
+                <!-- <a class="btn btn-lg btn-primary" href="#" role="button">Sign up today</a> -->
+              </p>
             </div>
           </div>
         </div>
@@ -82,9 +83,9 @@
           <img class="second-slide" src="/img/copenhagen/sandro-katalina-61692.jpg" alt="Second slide">
           <div class="container">
             <div class="carousel-caption">
-              <h1>Another example headline.</h1>
-              <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-              <p><a class="btn btn-lg btn-primary" href="#" role="button">Learn more</a></p>
+              <h1>My Copenhagen</h1>
+              <p>Copenhagen, Denmark’s capital, sits on the coastal islands of Zealand and Amager. It’s linked to Malmo in southern Sweden by the Öresund Bridge. Indre By, the city's historic center, contains Frederiksstaden, an 18th-century rococo district, home to the royal family’s Amalienborg Palace. Nearby is Christiansborg Palace and the Renaissance-era Rosenborg Castle, surrounded by gardens and home to the crown jewels.</p>
+              <p>
             </div>
           </div>
         </div>
@@ -92,9 +93,9 @@
           <img class="third-slide" src="/img/copenhagen/samuel-foster-217168.jpg" alt="Third slide">
           <div class="container">
             <div class="carousel-caption">
-              <h1>One more for good measure.</h1>
-              <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-              <p><a class="btn btn-lg btn-primary" href="#" role="button">Browse gallery</a></p>
+              <h1>My Copenhagen</h1>
+              <p>Copenhagen, Denmark’s capital, sits on the coastal islands of Zealand and Amager. It’s linked to Malmo in southern Sweden by the Öresund Bridge. Indre By, the city's historic center, contains Frederiksstaden, an 18th-century rococo district, home to the royal family’s Amalienborg Palace. Nearby is Christiansborg Palace and the Renaissance-era Rosenborg Castle, surrounded by gardens and home to the crown jewels.</p>
+              <p>
             </div>
           </div>
         </div>
@@ -108,57 +109,67 @@
         <span class="sr-only">Next</span>
       </a>
     </div><!-- /.carousel -->
-    <div class="row">
-      <div class="col-sm-8 blog-main">
-        <div class="blog-post">
-          <div class="" id="textwindow">
-          <ul>
-            {{#each quotes}}
-              <li>
-                {{{name}}} {{{quote}}}
-              </li>
-            {{/each}}
+    <div class="container">
+
+
+      <div class="row">
+        <div class="col-sm-7 blog-main padding-left-zero">
+          {{#each quotes}}
+          <div class="blog-post">
+              <h2 class="blog-post-title">
+                {{{name}}}
+              </h2>
+              <p class="blog-post-meta">
+
+              </p>
+              <div class="blog-post-content">
+                {{{quote}}}
+              </div>
+            <!-- <ul>
+              {{#each quotes}}
+                <li>
+                  {{{name}}} {{{quote}}}
+                </li>
+              {{/each}}
+            </ul> -->
+            <form action="/edit" method="GET">
+              <button>Edit</button>
+            </form>
+            <form action="/add" method="POST" autocomplete="off">
+              <!-- <input type="hidden" name="blog1"/> -->
+              <input type="text" placeholder="name" name="name">
+              <input type="text" placeholder="quote" name="quote">
+              <button type="submit">Submit</button>
+            </form>
+          </div>
+          {{/each}}
+        </div>
+
+
+
+        <div class="col-sm-5 blog-sidebar" id="addmap">
+          <!-- map -->
+          <div id='map'></div>
+          <div id="destlist" class="header">
+
+          <!-- input place for autocomplete address -->
+          <div class="pac-card" id="pac-card">
+
+            <div id="pac-container">
+              <input type="text" id="pac-input" placeholder="Your next destination...">
+            </div>
+          </div>
+          <!-- dropdown -->
+          <!-- <div class="infowindow-content">
+            <img src="" width="16" height="16" class="place-icon"/>
+            <span id="place-name" class="title"></span><br />
+            <span id="place-address"></span>
+          </div> -->
+          <!-- destination list -->
+          <!-- <button onclick="newDest()" class="addBtn btn btn-default">Add</button> -->
+          <ul class="place-cards" id="place-cards">
           </ul>
-          <form action="/edit" method="GET">
-            <button>Edit</button>
-          </form>
-          <form action="/add" method="POST" autocomplete="off">
-            <!-- <input type="hidden" name="blog1"/> -->
-            <input type="text" placeholder="name" name="name">
-            <input type="text" placeholder="quote" name="quote">
-            <button type="submit">Submit</button>
-          </form>
         </div>
-        </div>
-      </div>
-
-
-
-      <div class="col-sm-3 blog-sidebar" id="addmap">
-        <!-- map -->
-        <div id='map'></div>
-        <div id="destlist" class="header">
-
-        <!-- input place for autocomplete address -->
-        <div class="pac-card" id="pac-card">
-          <div id="title">
-            Enter your next destinations
-          </div>
-          <div id="pac-container">
-            <input type="text" id="pac-input" placeholder="Your next destination...">
-          </div>
-        </div>
-        <!-- dropdown -->
-        <!-- <div class="infowindow-content">
-          <img src="" width="16" height="16" class="place-icon"/>
-          <span id="place-name" class="title"></span><br />
-          <span id="place-address"></span>
-        </div> -->
-        <!-- destination list -->
-        <p4>Destinations</p4>
-        <div onclick="newDest()" class="addBtn">Add</div>
-        <ul class="place-cards" id="place-cards">
-        </ul>
       </div>
     </div>
   </div>
