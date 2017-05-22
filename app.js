@@ -151,7 +151,7 @@ app.post('/newblog', (req, res) => {
   newBlog.content = blog.content;
   newBlog.save(function(err) {
     if (err) throw err;
-    res.render('/blog/:');
+    res.render('/blog');
   })
   res.redirect('/newblog');
 })
