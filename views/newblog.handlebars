@@ -10,10 +10,10 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <link href="./css/index.css" rel="stylesheet"/>
-    <link href="./css/bootstrap/carousel.css" rel="stylesheet"/>
-    <link href="./css/bootstrap/blog.css" rel="stylesheet"/>
-    <link href="./css/bootstrap/bootstrap.css" rel="stylesheet"/>
+    <link href="/css/index.css" rel="stylesheet"/>
+    <link href="/css/bootstrap/carousel.css" rel="stylesheet"/>
+    <link href="/css/bootstrap/blog.css" rel="stylesheet"/>
+    <link href="/css/bootstrap/bootstrap.css" rel="stylesheet"/>
     <script src="js/medium-editor.js"></script>
 </head>
 <body>
@@ -130,7 +130,7 @@
                 </li>
               {{/each}}
             </ul> -->
-            <form action="/newblog" method="POST" autocomplete="off">
+            <form action="/post" method="POST" autocomplete="off">
               <input class="blog-edit-title" type="text" placeholder="Title" name="title">
               <input class="blog-edit-meta" type="text" placeholder="Share your wonderful journey with everyone!" name="content">
               <button type="submit">Submit</button>
@@ -166,15 +166,15 @@
       </div>
     </div>
   </div>
+  <script src="/js/index.js"></script>
   <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCVX-hvAGl21JA0nBii3fNYTyec2SOKLqw&libraries=places&callback=initMap">
   </script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   <script src="./js/jquery.ajax-cross-origin.min.js"></script>
-  <script src="/js/index.js"></script>
-  <script src="./js/bootstrap.js"></script>
-  <script src="./js/Sortable.js"></script>
-  <script src="./js/turf.min.js"></script>
+  <script src="/js/bootstrap.js"></script>
+  <script src="/js/Sortable.js"></script>
+  <script src="/js/turf.min.js"></script>
   <!-- <script src="js/medium-editor.js"></script> -->
   <link rel="stylesheet" href="css/medium-editor.css">
   <link rel="stylesheet" href="css/themes/default.css">

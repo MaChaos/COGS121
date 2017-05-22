@@ -135,9 +135,16 @@ app.post('/add', (req, res) => {
   })
 });
 app.get('/newblog', (req, res) => {
+  // console.log(req.params);
   res.render('newblog');
 })
-app.post('/newblog', (req, res) => {
+app.get('/newblog/:title', (req, res) => {
+  console.log(req.params);
+  res.render('newblog', {
+    'title': req.params.title
+  });
+})
+app.post('/post', (req, res) => {
   var blog = req.body;
   var user = req.user;
   var date = new Date();
@@ -151,9 +158,9 @@ app.post('/newblog', (req, res) => {
   newBlog.content = blog.content;
   newBlog.save(function(err) {
     if (err) throw err;
-    res.render('/blog');
+    // res.render('/');
   })
-  res.redirect('/newblog');
+  res.redirect('/newblog/' + title);
 })
 app.post('/save', (req, res) => {
     var blog = req.body;
