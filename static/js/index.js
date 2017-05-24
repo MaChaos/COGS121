@@ -167,10 +167,14 @@ function addRoute(place_list, length) {
 }
 
 function uploadPlacesToDb() {
+  console.log("this is blog title: "+$('#blog-title').val());
   // console.log(place_list);
-  $.post("/post",
+  $.post("/place",
     {
-      places: place_list
+      places: place_list,
+      title: $('#blog-title').val(),
+      content: $('#blog-content').val()
+      // title: document.getElementById('blog-title')
     },
     function(data, status) {
     }

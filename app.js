@@ -157,13 +157,11 @@ app.get('/newblog', isLoggedIn, (req, res) => {
 //     'title': req.params.title
 //   });
 // })
-app.post('/place', isLoggedIn, (req, res, next) => {
+app.post('/place', isLoggedIn, (req, res) => {
   // console.log(req.body);
   // console.log(req.data);
-  console.log(req.title);
-  next();
+  console.log(req);
 })
-
 app.post('/post', isLoggedIn, (req, res) => {
   console.log(req.places);
   var blog = req.body;
@@ -182,10 +180,31 @@ app.post('/post', isLoggedIn, (req, res) => {
   newBlog.places = req.body.places;
   newBlog.save(function(err) {
     if (err) throw err;
-    // res.render('/');
   })
+  console.log("***************************");
   res.redirect('/'+ user.local.username + '/' + title);
 })
+// app.post('/post', isLoggedIn, (req, res) => {
+//   console.log(req.places);
+//   var blog = req.body;
+//   var user = req.user;
+//   var date = new Date();
+//   var title = blog.title;
+//   console.log(blog);
+//   console.log(user);
+//   // console.log( );
+//   var newBlog = new blogModel();
+//   newBlog.owner.id = user._id;
+//   newBlog.owner.username = user.local.username;
+//   newBlog.title = blog.title;
+//   newBlog.time = date.toString();
+//   newBlog.content = blog.content;
+//   newBlog.places = req.body.places;
+//   newBlog.save(function(err) {
+//     if (err) throw err;
+//   })
+//   res.redirect('/'+ user.local.username + '/' + title);
+// })
 
 
 // after post, will direct to /:username/:title
