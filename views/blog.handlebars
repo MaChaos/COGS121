@@ -9,12 +9,12 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="">
     <meta name="author" content="">
-
+    <link href="/css/bootstrap/bootstrap.css" rel="stylesheet"/>
     <link href="/css/index.css" rel="stylesheet"/>
     <link href="/css/bootstrap/carousel.css" rel="stylesheet"/>
     <link href="/css/bootstrap/blog.css" rel="stylesheet"/>
-    <link href="/css/bootstrap/bootstrap.css" rel="stylesheet"/>
-    <script src="js/medium-editor.js"></script>
+    <script src="/js/medium-editor.js"></script>
+    <script src="/js/jquery-3.2.1.js"></script>
 </head>
 <body>
   <div class="navbar-wrapper">
@@ -32,11 +32,11 @@
               <a class="navbar-brand color-white" href="#">Travel U&Me</a>
             </div>
             <div id="navbar" class="navbar-collapse collapse">
-              <ul class="nav navbar-nav">
-                <li class="active"><a href="#">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#contact">Contact</a></li>
-                <li class="dropdown">
+              <ul class="nav navbar-nav float-right">
+                <!-- <li class="active"><a href="#">Home</a></li> -->
+                <!-- <li><a href="#about">About</a></li> -->
+                <!-- <li><a href="#contact">Contact</a></li> -->
+                <!-- <li class="dropdown">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
                   <ul class="dropdown-menu">
                     <li><a href="#">Action</a></li>
@@ -47,7 +47,12 @@
                     <li><a href="#">Separated link</a></li>
                     <li><a href="#">One more separated link</a></li>
                   </ul>
-                </li>
+                </li> -->
+                {{#if loggedIn}}
+                <li><a href="/:{{currentUser}}">{{currentUser}}</a></li>
+                {{else}}
+                <li><a href="/login">Login</a></li>
+                {{/if}}
               </ul>
             </div>
           </div>
@@ -115,25 +120,16 @@
           <div class="blog-post">
 
               <h2 class="blog-post-title">
-                {{title}}
+                {{blog.title}}
               </h2>
+              <p class="blog-post-owner">
+                {{blog.owner.username}}
+              </p>
               <p class="blog-post-meta">
                 <!-- {{content}} -->
               </p>
               <div class="blog-post-content">
               </div>
-            <!-- <ul>
-              {{#each quotes}}
-                <li>
-                  {{{name}}} {{{quote}}}
-                </li>
-              {{/each}}
-            </ul> -->
-            <form action="/post" method="POST" autocomplete="off">
-              <input class="blog-edit-title" type="text" placeholder="Title" name="title">
-              <input class="blog-edit-meta" type="text" placeholder="Share your wonderful journey with everyone!" name="content">
-              <button type="submit">Submit</button>
-            </form>
           </div>
         </div>
 
@@ -169,14 +165,13 @@
   <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCVX-hvAGl21JA0nBii3fNYTyec2SOKLqw&libraries=places&callback=initMap">
   </script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-  <script src="./js/jquery.ajax-cross-origin.min.js"></script>
+  <script src="/js/jquery.ajax-cross-origin.min.js"></script>
   <script src="/js/bootstrap.js"></script>
   <script src="/js/Sortable.js"></script>
   <script src="/js/turf.min.js"></script>
   <!-- <script src="js/medium-editor.js"></script> -->
-  <link rel="stylesheet" href="css/medium-editor.css">
-  <link rel="stylesheet" href="css/themes/default.css">
+  <link rel="stylesheet" href="/css/medium-editor.css">
+  <link rel="stylesheet" href="/css/themes/default.css">
 
 
 </body>

@@ -18,7 +18,7 @@ var login = require('./routes/login');
 var app = express()
 
 
-var Blog = require('./models/blog');
+var blogModel = require('./models/blog');
 // Print logs to the console and compress pages we send
 app.set('views', path.join(__dirname, 'views'));
 
@@ -85,6 +85,7 @@ app.get('/index', index.view);
 app.get('/login', (req, res) => {
   res.render('login', {message: req.flash('loginMessage')});
 });
+
 app.post('/login', passport.authenticate('local-login', {
   successRedirect: '/profile',
   failureRedirect: '/login',
@@ -96,17 +97,22 @@ app.get('/signup', (req, res) => {
 })
 // process the signup form
 app.post('/signup', passport.authenticate('local-signup', {
-  successRedirect: '/',
+  successRedirect: '/profile',
   failureRedirect: '/signup',
   failureFlash: true
 }))
 
+// app.get('/profile', isLoggedIn, (req, res) => {
+//   // console.log(req);
+//   res.render('profile', {
+//     user: req.user
+//   });
+// })
 app.get('/profile', isLoggedIn, (req, res) => {
-  // console.log(req);
-  res.render('profile', {
-    user: req.user
-  });
+  console.log(req.user.local.username);
+  res.redirect('/' + req.user.local.username);
 })
+
 app.get('/logout', (req, res) => {
   req.logout();
   res.redirect('/');
@@ -115,9 +121,13 @@ app.get('/logout', (req, res) => {
 function isLoggedIn(req, res, next) {
   if (req.isAuthenticated())
     return next();
-  res.redirect('/');
+  res.redirect('/login');
 }
-
+// function isOwner(req, res, next) {
+//   if (req.isAuthenticated() && req.params.username = req.user.local.username)
+//     return next();
+//   res.red
+// }
 app.get("/edit", (req, res) => {
   db.collection('test').find().toArray((err, result) => {
     if (err) return console.log(err)
@@ -138,12 +148,15 @@ app.get('/newblog', (req, res) => {
   // console.log(req.params);
   res.render('newblog');
 })
-app.get('/newblog/:title', (req, res) => {
-  console.log(req.params);
-  res.render('newblog', {
-    'title': req.params.title
-  });
-})
+// app.get('/:username/:title', (req, res) => {
+//   // console.log(req.params);
+//   console.log(req.params);
+//   // blogModel.findOne()
+//   res.render('newblog', {
+//     'username': req.params.username,
+//     'title': req.params.title
+//   });
+// })
 app.post('/post', (req, res) => {
   var blog = req.body;
   var user = req.user;
@@ -151,17 +164,46 @@ app.post('/post', (req, res) => {
   var title = blog.title;
   console.log(blog);
   console.log(user);
-  console.log(date.getDate());
-  var newBlog = new Blog();
+  // console.log( );
+  var newBlog = new blogModel();
   newBlog.owner.id = user._id;
+  newBlog.owner.username = user.local.username;
   newBlog.title = blog.title;
+  newBlog.time = date.toString();
   newBlog.content = blog.content;
   newBlog.save(function(err) {
     if (err) throw err;
     // res.render('/');
   })
-  res.redirect('/newblog/' + title);
+  res.redirect('/'+ user.local.username + '/' + title);
 })
+// after post, will direct to /:username/:title
+app.get('/:username/:title', (req, res) => {
+  var owner = req.params.username;
+  var title = req.params.title;
+  var loggedIn = false;
+  var isOwner = false;
+  blogModel.findOne({
+    'owner.username' : owner,
+    'title' : title
+  }, function(err, result) {
+    if (err) return handleError(err);
+    if (req.isAuthenticated()) {
+      var currentUser = req.user.local.username
+      loggedIn = true;
+      if (owner = currentUser)
+        isOwner = true;
+    }
+    res.render('blog', {
+      loggedIn,
+      isOwner,
+      currentUser,
+      blog : result
+    });
+  }
+  )
+})
+
 app.post('/save', (req, res) => {
     var blog = req.body;
     console.log(blog.name);
@@ -180,6 +222,36 @@ app.post('/save', (req, res) => {
   })
 });
 
+app.get('/:username', (req, res) => {
+  var owner = req.params.username;
+  var loggedIn = false;
+  var isOwner = false;
+  blogModel.find({
+    'owner.username' : owner,
+  }, function(err, result) {
+    if (err) return handleError(err);
+    if (req.isAuthenticated()) {
+      var currentUser = req.user.local.username
+      loggedIn = true;
+      if (owner = currentUser)
+        isOwner = true;
+    }
+    res.render('profile', {
+      user: req.user,
+      username: req.params.username,
+      loggedIn,
+      isOwner,
+      currentUser,
+      blogs : result
+    });
+  }
+  )
+  // res.render('profile', {
+    // user: req.user,
+    // username: req.params.username
+  // });
+
+})
 
 app.listen(3000, () => {
   console.log('listening on 3000')

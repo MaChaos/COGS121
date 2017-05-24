@@ -6,6 +6,9 @@ body {
   display: inline-block;
   font-size: 20px;
 }*/
+.float-right {
+  float: right;
+}
 .place-icon {
   width: 16px;
   height: 16px;

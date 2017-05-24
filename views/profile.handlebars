@@ -9,16 +9,16 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="">
     <meta name="author" content="">
-
+    <link href="./css/bootstrap/bootstrap.css" rel="stylesheet"/>
     <link href="./css/index.css" rel="stylesheet"/>
     <link href="./css/bootstrap/carousel.css" rel="stylesheet"/>
     <link href="./css/bootstrap/login.css" rel="stylesheet"/>
-    <link href="./css/bootstrap/bootstrap.css" rel="stylesheet"/>
     <script src="js/medium-editor.js"></script>
 </head>
 <body>
-  <!-- <div class="navbar-wrapper">
+  <div class="navbar-wrapper">
       <div class="container">
+
         <nav class="navbar navbar-static-top color-white">
           <div class="container">
             <div class="navbar-header">
@@ -31,11 +31,11 @@
               <a class="navbar-brand color-white" href="#">Travel U&Me</a>
             </div>
             <div id="navbar" class="navbar-collapse collapse">
-              <ul class="nav navbar-nav">
-                <li class="active"><a href="#">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#contact">Contact</a></li>
-                <li class="dropdown">
+              <ul class="nav navbar-nav float-right">
+                <!-- <li class="active"><a href="#">Home</a></li> -->
+                <!-- <li><a href="#about">About</a></li> -->
+                <!-- <li><a href="#contact">Contact</a></li> -->
+                <!-- <li class="dropdown">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
                   <ul class="dropdown-menu">
                     <li><a href="#">Action</a></li>
@@ -46,44 +46,57 @@
                     <li><a href="#">Separated link</a></li>
                     <li><a href="#">One more separated link</a></li>
                   </ul>
-                </li>
+                </li> -->
+                {{#if loggedIn}}
+                <li><a href="/:{{currentUser}}">{{currentUser}}</a></li>
+                {{else}}
+                <li><a href="/login">Login</a></li>
+                {{/if}}
               </ul>
             </div>
           </div>
         </nav>
-      </div>
-    </div> -->
-    <div class="container">
 
-      <div class="page-header text-center">
-          <h1><span class="fa fa-anchor"></span> Profile Page</h1>
-          <a href="/logout" class="btn btn-default btn-sm">Logout</a>
-      </div>
-
-      <div class="row">
-          <!-- LOCAL INFORMATION -->
-          <div class="col-sm-6">
-              <div class="well">
-                  <h3><span class="fa fa-user"></span> Local</h3>
-
-                      <p>
-                          <strong>id</strong>: {{user._id}}<br>
-                          <strong>email</strong>: {{user.local.email}}<br>
-                          <strong>password</strong>: {{user.local.password}}
-                      </p>
-
-              </div>
-          </div>
-
-          <form action="/create" method="POST" autocomplete="off">
-            <input type="text" placeholder="title" name="title">
-            <input type="text" placeholder="Say something about your wonderful trip~" name="content">
-            <button type="submit">Submit</button>
-          </form>
       </div>
     </div>
+  <div class="container">
 
-   <script src="./js/jquery-3.2.1.js"></script>
+    <div class="page-header text-center">
+        <h1><span class="fa fa-anchor"></span> Profile Page</h1>
+        <a href="/logout" class="btn btn-default btn-sm">Logout</a>
+    </div>
+
+    <div class="row">
+        <!-- LOCAL INFORMATION -->
+        {{#each blogs}}
+        <div class="col-sm-6">
+          <a href="/{{owner.username}}/{{title}}">
+            <div class="well">
+
+                    <!-- <p>
+                        <strong>id</strong>: {{user._id}}<br>
+                        <strong>username</strong>: {{user.local.username}}<br>
+                        <strong>password</strong>: {{user.local.password}}
+                    </p> -->
+                    <p>
+                        <strong>title</strong>: {{title}}<br>
+                        <strong>author</strong>: {{owner.username}}<br>
+                        {{content}}
+                    </p>
+
+            </div>
+          </a>
+        </div>
+        {{/each}}
+        <form action="/newblog" method="GET">
+          {{#if isOwner}}
+          <button type="submit">add a blog</button>
+          {{/if}}
+        </form>
+    </div>
+  </div>
+
+  <script src="./js/jquery-3.2.1.js"></script>
   {{> facebook}}
   <script src="./js/login.js"></script>
   <script src="./js/bootstrap.js"></script>
