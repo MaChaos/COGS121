@@ -8,8 +8,8 @@ Devon - Working on user interface like view mode.
 Claire - Worked unique functionality like editable editor.
 
 
-![Milesone 13 Screenshot 1](/images/13m-1.png)
-![Milesone 13 Screenshot 2](/images/13m-2.png)
-![Milesone 13 Screenshot 3](/images/13m-3.png)
+![Milesone 13 Screenshot 1](/images/m13-1.png)
+![Milesone 13 Screenshot 2](/images/m13-2.png)
+![Milesone 13 Screenshot 3](/images/m13-3.png)
 
 
