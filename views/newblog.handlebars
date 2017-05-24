@@ -59,8 +59,8 @@
 
     <!-- Carousel
     ================================================== -->
-    <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="false">
-      <!-- Indicators -->
+    <!-- <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="false">
+
       <ol class="carousel-indicators">
         <li data-target="#myCarousel" data-slide-to="0" class="active" ></li>
         <li data-target="#myCarousel" data-slide-to="1"></li>
@@ -106,33 +106,17 @@
         <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
         <span class="sr-only">Next</span>
       </a>
-    </div><!-- /.carousel -->
+    </div> -->
     <div class="container">
 
 
       <div class="row">
         <div class="col-sm-7 blog-main padding-left-zero">
           <div class="blog-post">
-
-              <h2 class="blog-post-title">
-                {{title}}
-              </h2>
-              <p class="blog-post-meta">
-                <!-- {{content}} -->
-              </p>
-              <div class="blog-post-content">
-              </div>
-            <!-- <ul>
-              {{#each quotes}}
-                <li>
-                  {{{name}}} {{{quote}}}
-                </li>
-              {{/each}}
-            </ul> -->
             <form action="/post" method="POST" autocomplete="off">
-              <input class="blog-edit-title" type="text" placeholder="Title" name="title">
-              <input class="blog-edit-meta" type="text" placeholder="Share your wonderful journey with everyone!" name="content">
-              <button type="submit">Submit</button>
+              <input id="blog-title" class="blog-edit-title" type="text" placeholder="Title" name="title">
+              <input id="blog-content" class="blog-edit-meta" type="text" placeholder="Share your wonderful journey with everyone!" name="content">
+              <button onclick="uploadPlacesToDb()" type="submit">Submit</button>
             </form>
           </div>
         </div>

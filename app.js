@@ -144,7 +144,7 @@ app.post('/add', (req, res) => {
     res.redirect('/')
   })
 });
-app.get('/newblog', (req, res) => {
+app.get('/newblog', isLoggedIn, (req, res) => {
   // console.log(req.params);
   res.render('newblog');
 })
@@ -157,7 +157,15 @@ app.get('/newblog', (req, res) => {
 //     'title': req.params.title
 //   });
 // })
-app.post('/post', (req, res) => {
+app.post('/place', isLoggedIn, (req, res, next) => {
+  // console.log(req.body);
+  // console.log(req.data);
+  console.log(req.title);
+  next();
+})
+
+app.post('/post', isLoggedIn, (req, res) => {
+  console.log(req.places);
   var blog = req.body;
   var user = req.user;
   var date = new Date();
@@ -171,12 +179,15 @@ app.post('/post', (req, res) => {
   newBlog.title = blog.title;
   newBlog.time = date.toString();
   newBlog.content = blog.content;
+  newBlog.places = req.body.places;
   newBlog.save(function(err) {
     if (err) throw err;
     // res.render('/');
   })
   res.redirect('/'+ user.local.username + '/' + title);
 })
+
+
 // after post, will direct to /:username/:title
 app.get('/:username/:title', (req, res) => {
   var owner = req.params.username;

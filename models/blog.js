@@ -12,9 +12,7 @@ var blogSchema = mongoose.Schema({
     title : String,
     time : String,
     content : String,
-    places : {
-      name: String,
-    }
+    places : Array
 
 });
 

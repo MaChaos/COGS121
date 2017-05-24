@@ -15,6 +15,7 @@
     <link href="/css/bootstrap/blog.css" rel="stylesheet"/>
     <script src="/js/medium-editor.js"></script>
     <script src="/js/jquery-3.2.1.js"></script>
+    <script src="/js/index.js"></script>
 </head>
 <body>
   <div class="navbar-wrapper">
@@ -49,7 +50,7 @@
                   </ul>
                 </li> -->
                 {{#if loggedIn}}
-                <li><a href="/:{{currentUser}}">{{currentUser}}</a></li>
+                <li><a href="/{{currentUser}}">{{currentUser}}</a></li>
                 {{else}}
                 <li><a href="/login">Login</a></li>
                 {{/if}}
@@ -161,7 +162,6 @@
       </div>
     </div>
   </div>
-  <script src="/js/index.js"></script>
   <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCVX-hvAGl21JA0nBii3fNYTyec2SOKLqw&libraries=places&callback=initMap">
   </script>

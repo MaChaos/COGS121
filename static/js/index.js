@@ -5,6 +5,7 @@ $(document).ready(function() {
 })
 var map;
 var marker;
+var place_list;
 function initializePage() {
   // highlight();
   // buttonclick();
@@ -33,8 +34,6 @@ function initMap() {
       window.alert("No details for input");
       return;
     }
-    console.log("right now: " + map.getBounds());
-    console.log("target bounds: " + place.geometry.location);
 
     var extended_bound = map.getBounds().extend(place.geometry.location);
     var $mapDiv = $('#map');
@@ -48,33 +47,7 @@ function initMap() {
 
   // addMarker(geisel, map);
 }
-function getBoundsZoomLevel(bounds, mapDim) {
-    var WORLD_DIM = { height: 256, width: 256 };
-    var ZOOM_MAX = 21;
 
-    function latRad(lat) {
-        var sin = Math.sin(lat * Math.PI / 180);
-        var radX2 = Math.log((1 + sin) / (1 - sin)) / 2;
-        return Math.max(Math.min(radX2, Math.PI), -Math.PI) / 2;
-    }
-
-    function zoom(mapPx, worldPx, fraction) {
-        return Math.floor(Math.log(mapPx / worldPx / fraction) / Math.LN2);
-    }
-
-    var ne = bounds.getNorthEast();
-    var sw = bounds.getSouthWest();
-
-    var latFraction = (latRad(ne.lat()) - latRad(sw.lat())) / Math.PI;
-
-    var lngDiff = ne.lng() - sw.lng();
-    var lngFraction = ((lngDiff < 0) ? (lngDiff + 360) : lngDiff) / 360;
-
-    var latZoom = zoom(mapDim.height, WORLD_DIM.height, latFraction);
-    var lngZoom = zoom(mapDim.width, WORLD_DIM.width, lngFraction);
-
-    return Math.min(latZoom, lngZoom, ZOOM_MAX);
-}
 //Adds a marker to the map
 function addMarker(location) {
   marker = new google.maps.Marker({
@@ -131,8 +104,8 @@ function addPlaceInfo(place) {
   // var $editablePlace = $('#place-cards');
   // var elements = $editablePlace.children();
   var elements = document.getElementById('place-cards').children;
-  console.log("elements: " +elements );
-  var place_list = [];
+  console.log("elements: " + elements );
+  place_list = [];
   // console.log("****** "+elements.children.getElementsByTagName("img").innerHTML);
   // elements.each(function(index,element){
   //   place_list.push($(this).attr('id'));
@@ -142,9 +115,10 @@ function addPlaceInfo(place) {
   // var childs = $element.children();
   for (var i = 0; i < elements.length; i++) {
     var temp1 = elements[i];
-    var temp2 = temp1.getElementsByTagName('span')[0].innerHTML;
+    var temp2 = temp1.getElementsByClassName('place-address')[0].innerHTML;
     place_list.push(temp2);
     console.log(temp2);
+    console.log(place_list);
 
   }
   var length = place_list.length;
@@ -191,6 +165,18 @@ function addRoute(place_list, length) {
 
   // displayRoute(place_list[0], place_list[place_list.length-1], directionsService, directionsDisplay);
 }
+
+function uploadPlacesToDb() {
+  // console.log(place_list);
+  $.post("/post",
+    {
+      places: place_list
+    },
+    function(data, status) {
+    }
+  )
+}
+
 function displayRoute(origin, destination, waypoints, service, display) {
   service.route({
     origin: origin,
@@ -205,6 +191,34 @@ function displayRoute(origin, destination, waypoints, service, display) {
       alert('Could not display directions due to: ' + status);
     }
   });
+}
+
+function getBoundsZoomLevel(bounds, mapDim) {
+    var WORLD_DIM = { height: 256, width: 256 };
+    var ZOOM_MAX = 21;
+
+    function latRad(lat) {
+        var sin = Math.sin(lat * Math.PI / 180);
+        var radX2 = Math.log((1 + sin) / (1 - sin)) / 2;
+        return Math.max(Math.min(radX2, Math.PI), -Math.PI) / 2;
+    }
+
+    function zoom(mapPx, worldPx, fraction) {
+        return Math.floor(Math.log(mapPx / worldPx / fraction) / Math.LN2);
+    }
+
+    var ne = bounds.getNorthEast();
+    var sw = bounds.getSouthWest();
+
+    var latFraction = (latRad(ne.lat()) - latRad(sw.lat())) / Math.PI;
+
+    var lngDiff = ne.lng() - sw.lng();
+    var lngFraction = ((lngDiff < 0) ? (lngDiff + 360) : lngDiff) / 360;
+
+    var latZoom = zoom(mapDim.height, WORLD_DIM.height, latFraction);
+    var lngZoom = zoom(mapDim.width, WORLD_DIM.width, lngFraction);
+
+    return Math.min(latZoom, lngZoom, ZOOM_MAX);
 }
 // function highlight() {
 //   $(window).scroll(function(){
