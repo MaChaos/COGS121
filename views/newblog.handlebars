@@ -1,3 +1,4 @@
+<!-- newblog -->
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,12 +10,13 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="">
     <meta name="author" content="">
-
+    <link href="/css/bootstrap/bootstrap.css" rel="stylesheet"/>
     <link href="/css/index.css" rel="stylesheet"/>
     <link href="/css/bootstrap/carousel.css" rel="stylesheet"/>
     <link href="/css/bootstrap/blog.css" rel="stylesheet"/>
-    <link href="/css/bootstrap/bootstrap.css" rel="stylesheet"/>
-    <script src="js/medium-editor.js"></script>
+    <script src="/js/medium-editor.js"></script>
+    <script src="/js/jquery-3.2.1.js"></script>
+    <script src="/js/index.js"></script>
 </head>
 <body>
   <div class="navbar-wrapper">
@@ -113,16 +115,16 @@
       <div class="row">
         <div class="col-sm-7 blog-main padding-left-zero">
           <div class="blog-post">
-            <form action="/post" method="POST" autocomplete="off">
+            <!-- <form action="/post" method="POST" autocomplete="off">
               <input id="blog-title" class="blog-edit-title" type="text" placeholder="Title" name="title">
               <input id="blog-content" class="blog-edit-meta" type="text" placeholder="Share your wonderful journey with everyone!" name="content">
               <button onclick="uploadPlacesToDb()" type="submit">Submit</button>
-            </form>
-            <!-- <formautocomplete="off">
+            </form> -->
+            <!-- <form autocomplete="off"> -->
               <input id="blog-title" class="blog-edit-title" type="text" placeholder="Title" name="title">
               <input id="blog-content" class="blog-edit-meta" type="text" placeholder="Share your wonderful journey with everyone!" name="content">
               <button onclick="uploadPlacesToDb()" >Submit</button>
-            </form> -->
+            <!-- </form> -->
           </div>
         </div>
 
@@ -154,18 +156,16 @@
       </div>
     </div>
   </div>
-  <script src="/js/index.js"></script>
   <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCVX-hvAGl21JA0nBii3fNYTyec2SOKLqw&libraries=places&callback=initMap">
   </script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-  <script src="./js/jquery.ajax-cross-origin.min.js"></script>
+  <script src="/js/jquery.ajax-cross-origin.min.js"></script>
   <script src="/js/bootstrap.js"></script>
   <script src="/js/Sortable.js"></script>
   <script src="/js/turf.min.js"></script>
   <!-- <script src="js/medium-editor.js"></script> -->
-  <link rel="stylesheet" href="css/medium-editor.css">
-  <link rel="stylesheet" href="css/themes/default.css">
+  <link rel="stylesheet" href="/css/medium-editor.css">
+  <link rel="stylesheet" href="/css/themes/default.css">
 
 
 </body>

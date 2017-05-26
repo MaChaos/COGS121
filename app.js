@@ -162,7 +162,10 @@ app.post('/place', isLoggedIn, (req, res) => {
   // console.log(req.data);
   console.log(req);
 })
-app.post('/post', isLoggedIn, (req, res) => {
+app.post('/post', isLoggedIn, (req, res, next) => {
+  console.log("this is the first step")
+  next()
+}, (req, res) => {
   console.log(req.places);
   var blog = req.body;
   var user = req.user;
@@ -181,30 +184,8 @@ app.post('/post', isLoggedIn, (req, res) => {
   newBlog.save(function(err) {
     if (err) throw err;
   })
-  console.log("***************************");
-  res.redirect('/'+ user.local.username + '/' + title);
+  res.send({redirect: '/'+ user.local.username + '/' + title});
 })
-// app.post('/post', isLoggedIn, (req, res) => {
-//   console.log(req.places);
-//   var blog = req.body;
-//   var user = req.user;
-//   var date = new Date();
-//   var title = blog.title;
-//   console.log(blog);
-//   console.log(user);
-//   // console.log( );
-//   var newBlog = new blogModel();
-//   newBlog.owner.id = user._id;
-//   newBlog.owner.username = user.local.username;
-//   newBlog.title = blog.title;
-//   newBlog.time = date.toString();
-//   newBlog.content = blog.content;
-//   newBlog.places = req.body.places;
-//   newBlog.save(function(err) {
-//     if (err) throw err;
-//   })
-//   res.redirect('/'+ user.local.username + '/' + title);
-// })
 
 
 // after post, will direct to /:username/:title
@@ -228,7 +209,8 @@ app.get('/:username/:title', (req, res) => {
       loggedIn,
       isOwner,
       currentUser,
-      blog : result
+      blog : result,
+      places : result.places
     });
   }
   )

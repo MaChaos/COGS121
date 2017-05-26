@@ -6,6 +6,7 @@ $(document).ready(function() {
 var map;
 var marker;
 var place_list;
+var geo_list = [];
 function initializePage() {
   // highlight();
   // buttonclick();
@@ -30,6 +31,7 @@ function initMap() {
     // console.log("h3");
     var place = autocomplete.getPlace();
     console.log(place);
+    console.log(JSON.stringify(place, null, ' '));
     if (!place.geometry) {
       window.alert("No details for input");
       return;
@@ -50,8 +52,11 @@ function initMap() {
 
 //Adds a marker to the map
 function addMarker(location) {
+  console.log("*******location Below*******");
+  console.log(location);
+  var loc = location;
   marker = new google.maps.Marker({
-    position: location,
+    position: loc,
     map: map,
     animation: google.maps.Animation.DROP
   });
@@ -59,14 +64,15 @@ function addMarker(location) {
 function addPlaceInfo(place) {
   var place_info = document.createElement('div');
   place_info.className = "place-info";
-  var address = '';
-  if (place.address_components) {
-    address = [
-      (place.address_components[0] && place.address_components[0].short_name || ''),
-      (place.address_components[1] && place.address_components[1].short_name || ''),
-      (place.address_components[2] && place.address_components[2].short_name || '')
-    ].join(' ');
-  }
+  var address = place.formatted_address;
+  // var address = '';
+  // if (place.address_components) {
+  //   address = [
+  //     (place.address_components[0] && place.address_components[0].short_name || ''),
+  //     (place.address_components[1] && place.address_components[1].short_name || ''),
+  //     (place.address_components[2] && place.address_components[2].short_name || '')
+  //   ].join(' ');
+  // }
   // add icon
   var place_icon = document.createElement('img');
   place_icon.src = place.icon;
@@ -85,6 +91,21 @@ function addPlaceInfo(place) {
   place_addr.textContent = address;
   place_addr.className = "place-address"
   place_info.append(place_addr);
+
+  // add a hidden geolocation
+  // var place_geo = document.createElement('span');
+  // place_geo.textContent = place.geometry.location;
+  // place_geo.className = "place-geo";
+  // place_info.append(place.geometry.location);
+  // console.log("*******place_geo Below*******");
+  // console.log(place.geometry.location);
+  // var test = JSON.stringify(place.geometry.location);
+  // console.log(JSON.stringify(place.geometry.location));
+  // console.log(test.replace(/\"/g, ""))
+  // console.log(place.geometry.location[0]);
+  // console.log(JSON.stringify(place.geometry.location.lat));
+
+  geo_list.push(JSON.stringify(place.geometry.location));
 
   var newli = document.createElement('li');
   newli.append(place_info);
@@ -115,7 +136,13 @@ function addPlaceInfo(place) {
   // var childs = $element.children();
   for (var i = 0; i < elements.length; i++) {
     var temp1 = elements[i];
-    var temp2 = temp1.getElementsByClassName('place-address')[0].innerHTML;
+    // console.log(temp1.getElementsByClassName('place-address'));
+    // console.log(temp1.getElementsByClassName('place-geo'));
+    var temp2 = {
+      'addr': temp1.getElementsByClassName('place-address')[0].innerHTML,
+      'geo': geo_list[i]
+    };
+    //  temp1.getElementsByClassName('place-address')[0].innerHTML;
     place_list.push(temp2);
     console.log(temp2);
     console.log(place_list);
@@ -128,18 +155,19 @@ function addPlaceInfo(place) {
     marker.setMap(null);
     addRoute(place_list, length);
   }
-  else if (length > 1)
+  else if (length > 2)
     addRoute(place_list, length);
   console.log("place-list: "+ place_list);
 }
+
 function addRoute(place_list, length) {
   var directionsService = new google.maps.DirectionsService;
   var directionsDisplay = new google.maps.DirectionsRenderer;
   directionsDisplay.setMap(map);
 
-  var origin = place_list[0];
+  var origin = place_list[0].addr;
   // console.log("origin: "+origin);
-  var destination = place_list[place_list.length - 1];
+  var destination = place_list[place_list.length - 1].addr;
 
   var waypoints = [];
   var format;
@@ -148,10 +176,14 @@ function addRoute(place_list, length) {
   if (length > 2) {
     for (var i = 1; i < length - 1; i++) {
       waypoints.push({
-        location: place_list[i]
+        location: place_list[i].addr
       });
     }
-    console.log("waypoints: " + waypoints);
+    // console.log(place_list[0]);
+    // console.log(place_list[0][0]);
+    // console.log(place_list[0].geo);
+    // console.log("*******Waypoints Below*******");
+    console.log(waypoints);
     // waypoints.shift();
     // console.log("waypoints1: " + waypoints);
     // waypoints.splice(waypoints.length-1, 1);
@@ -168,15 +200,18 @@ function addRoute(place_list, length) {
 
 function uploadPlacesToDb() {
   console.log("this is blog title: "+$('#blog-title').val());
+  console.log(place_list);
   // console.log(place_list);
-  $.post("/place",
+  $.post("/post",
     {
       places: place_list,
       title: $('#blog-title').val(),
       content: $('#blog-content').val()
-      // title: document.getElementById('blog-title')
     },
     function(data, status) {
+      if (status == 'success') {
+        window.location = data.redirect;
+      }
     }
   )
 }
