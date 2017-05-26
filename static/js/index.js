@@ -103,9 +103,13 @@ function addPlaceInfo(place) {
   // console.log(JSON.stringify(place.geometry.location));
   // console.log(test.replace(/\"/g, ""))
   // console.log(place.geometry.location[0]);
-  // console.log(JSON.stringify(place.geometry.location.lat));
-
-  geo_list.push(JSON.stringify(place.geometry.location));
+  console.log(place.geometry.location.lat());
+  var latlng = {
+    lat : place.geometry.location.lat(),
+    lng : place.geometry.location.lng()
+  }
+  geo_list.push(latlng);
+  console.log(geo_list);
 
   var newli = document.createElement('li');
   newli.append(place_info);

@@ -179,7 +179,10 @@
 
   {{#each places}}
   <script>
-    addMarker('{{{geo}}}');
+    var place = '{{geo}}';
+    console.log('{{geo.lat}}');
+    var place = new google.maps.LatLng('{{geo.lat}}', '{{geo.lng}}')
+    addMarker(place);
   </script>
   {{/each}}
 
