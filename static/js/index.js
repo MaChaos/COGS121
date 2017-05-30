@@ -4,56 +4,79 @@ $(document).ready(function() {
   initializePage();
 })
 var map;
+var center;
+var zoom;
 var marker;
 var place_list;
 var geo_list = [];
 function initializePage() {
-  // highlight();
-  // buttonclick();
-
 }
 
 // use Google Maps API to create a mapbox
 function initMap() {
-  var geisel = {lat: 55.675877, lng: 12.567678};
+
+  // create the map
+  var geisel = {lat: 32.8811507, lng: -117.2396384};
   map = new google.maps.Map(document.getElementById('map'), {
     zoom: 14,
     center: geisel,
 
   });
 
-  var card = document.getElementById('pac-card');
   var input = document.getElementById('pac-input');
-
   var autocomplete = new google.maps.places.Autocomplete(input);
   autocomplete.addListener('place_changed', function(){
-    // infowindow.close();
-    // console.log("h3");
     var place = autocomplete.getPlace();
-    console.log(place);
-    console.log(JSON.stringify(place, null, ' '));
     if (!place.geometry) {
       window.alert("No details for input");
       return;
     }
 
+    // set center and zoom
     var extended_bound = map.getBounds().extend(place.geometry.location);
+    // centerAndZoom(extended_bound);
     var $mapDiv = $('#map');
     var mapDim = {height: $mapDiv.height(), width: $mapDiv.width()};
-    // addMarker(place.geometry.location,map);
-    addPlaceInfo(place);
-    map.setCenter(extended_bound.getCenter());
-    map.setZoom(getBoundsZoomLevel(extended_bound, mapDim))
+    center = extended_bound.getCenter();
+    map.setCenter(center);
+    console.log("----------center------------");
+    console.log(center);
+    console.log(center.lat());
+    console.log(center.lng());
+    zoom = getBoundsZoomLevel(extended_bound, mapDim);
+    map.setZoom(zoom);
+    console.log("----------zoom------------");
+    console.log(zoom);
+    // clear the input field
     $(input).val('');
+    addPlaceInfo(place);
   })
+}
 
-  // addMarker(geisel, map);
+function uploadPlacesToDb() {
+  $.post("/post",
+    {
+      places: place_list,
+      title: $('#blog-title').val(),
+      content: $('#blog-content').val(),
+      zoomLevel: zoom,
+      centerLatLng: {
+        lat: center.lat(),
+        lng: center.lng()
+      }
+    },
+    function(data, status) {
+      if (status == 'success') {
+        window.location = data.redirect;
+      }
+    }
+  )
 }
 
 //Adds a marker to the map
 function addMarker(location) {
-  console.log("*******location Below*******");
-  console.log(location);
+  // console.log("*******location Below*******");
+  // console.log(location);
   var loc = location;
   marker = new google.maps.Marker({
     position: loc,
@@ -61,18 +84,12 @@ function addMarker(location) {
     animation: google.maps.Animation.DROP
   });
 }
+
+////////////// addPlaceInfo ///////////////////
 function addPlaceInfo(place) {
   var place_info = document.createElement('div');
   place_info.className = "place-info";
   var address = place.formatted_address;
-  // var address = '';
-  // if (place.address_components) {
-  //   address = [
-  //     (place.address_components[0] && place.address_components[0].short_name || ''),
-  //     (place.address_components[1] && place.address_components[1].short_name || ''),
-  //     (place.address_components[2] && place.address_components[2].short_name || '')
-  //   ].join(' ');
-  // }
   // add icon
   var place_icon = document.createElement('img');
   place_icon.src = place.icon;
@@ -92,66 +109,40 @@ function addPlaceInfo(place) {
   place_addr.className = "place-address"
   place_info.append(place_addr);
 
-  // add a hidden geolocation
-  // var place_geo = document.createElement('span');
-  // place_geo.textContent = place.geometry.location;
-  // place_geo.className = "place-geo";
-  // place_info.append(place.geometry.location);
-  // console.log("*******place_geo Below*******");
-  // console.log(place.geometry.location);
-  // var test = JSON.stringify(place.geometry.location);
-  // console.log(JSON.stringify(place.geometry.location));
-  // console.log(test.replace(/\"/g, ""))
-  // console.log(place.geometry.location[0]);
-  console.log(place.geometry.location.lat());
   var latlng = {
     lat : place.geometry.location.lat(),
     lng : place.geometry.location.lng()
   }
   geo_list.push(latlng);
-  console.log(geo_list);
-
   var newli = document.createElement('li');
   newli.append(place_info);
   $("#place-cards").append(newli);
   var place_cards = document.getElementById('place-cards');
+
+
+  ////////////// add Sortable ///////////////////
   var editablePlace = Sortable.create(place_cards, {
     onUpdate: function(evt) {
       var item = evt.item;
-      console.log("item: " + item);
+      // console.log("item: " + item);
     },
     onEnd: function(evt){
-      console.log(evt.oldIndex);
-
+      // console.log(evt.oldIndex);
     },
     dataIdAttr: 'data-id'
   });
-  // var $editablePlace = $('#place-cards');
-  // var elements = $editablePlace.children();
+  ////////////// create place_list(db) ///////////////////
   var elements = document.getElementById('place-cards').children;
-  console.log("elements: " + elements );
   place_list = [];
-  // console.log("****** "+elements.children.getElementsByTagName("img").innerHTML);
-  // elements.each(function(index,element){
-  //   place_list.push($(this).attr('id'));
-  // });
-  // console.log(elements.length);
-  // console.log(elements[0]);
-  // var childs = $element.children();
   for (var i = 0; i < elements.length; i++) {
     var temp1 = elements[i];
-    // console.log(temp1.getElementsByClassName('place-address'));
-    // console.log(temp1.getElementsByClassName('place-geo'));
     var temp2 = {
       'addr': temp1.getElementsByClassName('place-address')[0].innerHTML,
       'geo': geo_list[i]
     };
-    //  temp1.getElementsByClassName('place-address')[0].innerHTML;
     place_list.push(temp2);
-    console.log(temp2);
-    console.log(place_list);
-
   }
+  ////////////// add Route ///////////////////
   var length = place_list.length;
   if (length == 1)
     addMarker(place.geometry.location,map);
@@ -161,21 +152,19 @@ function addPlaceInfo(place) {
   }
   else if (length > 2)
     addRoute(place_list, length);
-  console.log("place-list: "+ place_list);
+  // console.log("place-list: "+ place_list);
 }
-
+////////////// func addRoute ///////////////////
 function addRoute(place_list, length) {
   var directionsService = new google.maps.DirectionsService;
   var directionsDisplay = new google.maps.DirectionsRenderer;
   directionsDisplay.setMap(map);
 
   var origin = place_list[0].addr;
-  // console.log("origin: "+origin);
   var destination = place_list[place_list.length - 1].addr;
-
   var waypoints = [];
   var format;
-  // console.log("destination: " + destination);
+
   // if more than 2 destinations, then add waypoints from place_list
   if (length > 2) {
     for (var i = 1; i < length - 1; i++) {
@@ -183,41 +172,13 @@ function addRoute(place_list, length) {
         location: place_list[i].addr
       });
     }
-    // console.log(place_list[0]);
-    // console.log(place_list[0][0]);
-    // console.log(place_list[0].geo);
-    // console.log("*******Waypoints Below*******");
     console.log(waypoints);
-    // waypoints.shift();
-    // console.log("waypoints1: " + waypoints);
-    // waypoints.splice(waypoints.length-1, 1);
-    // console.log("waypoints2: " + waypoints);
     displayRoute(origin, destination, waypoints, directionsService, directionsDisplay);
   }
+  // only two destinations
   else {
-    // waypoints = [];
     displayRoute(origin, destination, waypoints, directionsService, directionsDisplay);
   }
-
-  // displayRoute(place_list[0], place_list[place_list.length-1], directionsService, directionsDisplay);
-}
-
-function uploadPlacesToDb() {
-  console.log("this is blog title: "+$('#blog-title').val());
-  console.log(place_list);
-  // console.log(place_list);
-  $.post("/post",
-    {
-      places: place_list,
-      title: $('#blog-title').val(),
-      content: $('#blog-content').val()
-    },
-    function(data, status) {
-      if (status == 'success') {
-        window.location = data.redirect;
-      }
-    }
-  )
 }
 
 function displayRoute(origin, destination, waypoints, service, display) {
@@ -263,6 +224,28 @@ function getBoundsZoomLevel(bounds, mapDim) {
 
     return Math.min(latZoom, lngZoom, ZOOM_MAX);
 }
+
+function uploadImage(){
+  $('#cover-image').submit((e) => {
+  e.preventDefault();
+  const data = new FormData(document.querySelector('form'));
+  // console.log(data);
+  $.ajax({
+    url: '/uploadImg',
+    type: 'POST',
+    contentType: false,
+    data: data,
+    enctype: 'multipart/form-data',
+    processData: false,
+    success: function (res) {
+      // console.log(res);
+      var tempPath = "/uploads/" + res.filename;
+      $("#first-slide").attr("src", tempPath);
+      // $('#response').text(res.message);
+    }
+  });
+});
+}
 // function highlight() {
 //   $(window).scroll(function(){
 //     var height = $(".highlight").offset().top - $(window).scrollTop();
@@ -274,33 +257,4 @@ function getBoundsZoomLevel(bounds, mapDim) {
 //       $("#newmarker").css("background-color", $("#highlight").css("color"));
 //     }
 //   })
-// }
-
-// function newDest() {
-//   var dest = document.getElementById("pac-input").value;
-//   console.log(dest);
-//   document.getElementById("pac-input").value = "";
-//   getAjax(dest);
-// // }
-// // function getAjax(query) {
-//   $.ajax({
-//          url: "http://api.mapbox.com/geocoding/v5/mapbox.places/"+query+".json?access_token=pk.eyJ1Ijoiemh1eW1hbyIsImEiOiJjajFvbjB2NTAwMTVtMzJtaGkwc2N1dW0zIn0.tNPQ9yER6BTqqrBaUi3T2A",
-//          type: "GET",
-//          crossDomain: true,
-//         // crossOrigin: true,
-//         //  data: JSON.stringify(somejson),
-//          dataType: "json",
-//          success: function (response) {
-//            console.log(response);
-//            var coordinates = response.features[0].geometry.coordinates;
-//            console.log(coordinates);
-//
-//            addMarker(query, coordinates);
-//           //    var resp = JSON.parse(response);
-//           //    alert(resp.status);
-//          },
-//          error: function (xhr, status) {
-//              alert("error");
-//          }
-//      });
 // }

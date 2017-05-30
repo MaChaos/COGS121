@@ -15,6 +15,7 @@
     <link href="./css/bootstrap/blog.css" rel="stylesheet"/>
     <link href="./css/bootstrap/bootstrap.css" rel="stylesheet"/>
     <script src="js/medium-editor.js"></script>
+    <script src="/js/jquery-3.2.1.js"></script>
     <script src="/js/index.js"></script>
     <script async defer
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCVX-hvAGl21JA0nBii3fNYTyec2SOKLqw&libraries=places&callback=initMap">
@@ -22,6 +23,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 </head>
 <body>
+
   <div class="navbar-wrapper">
       <div class="container">
 
@@ -73,7 +75,7 @@
       </ol>
       <div class="carousel-inner" role="listbox">
         <div class="item active">
-          <img class="first-slide" src="/img/copenhagen/sandro-katalina-61692.jpg" alt="First slide">
+          <img id="first-slide" class="first-slide" src="/img/copenhagen/sandro-katalina-61692.jpg" alt="First slide">
           <div class="container">
             <div class="carousel-caption">
               <h1>My Copenhagen</h1>
@@ -119,6 +121,14 @@
 
       <div class="row">
         <div class="col-sm-7 blog-main padding-left-zero">
+          <!-- test form submit image -->
+          {{img}}
+          <form id="cover-image">
+            <input type="text" name="title" placeholder="title" />
+            <input type="file" name="upl" />
+            <button onclick="uploadImage()" type="submit">Submit</button>
+          </form>
+
           {{#each quotes}}
           <div class="blog-post">
               <h2 class="blog-post-title">

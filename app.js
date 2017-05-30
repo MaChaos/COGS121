@@ -12,13 +12,15 @@ var cookieParser = require('cookie-parser');
 var session = require('express-session');
 var configDB = require('./config/database.js');
 var mongoose = require('mongoose');
-
+var multer = require('multer');
+var fs = require('fs');
 var index = require('./routes/index');
 var login = require('./routes/login');
 var app = express()
 
 
 var blogModel = require('./models/blog');
+var imageModel = require('./models/image');
 // Print logs to the console and compress pages we send
 app.set('views', path.join(__dirname, 'views'));
 
@@ -108,11 +110,12 @@ app.post('/signup', passport.authenticate('local-signup', {
 //     user: req.user
 //   });
 // })
+////////////// Profile ///////////////////
 app.get('/profile', isLoggedIn, (req, res) => {
-  console.log(req.user.local.username);
+  // console.log(req.user.local.username);
   res.redirect('/' + req.user.local.username);
 })
-
+////////////// Logout ///////////////////
 app.get('/logout', (req, res) => {
   req.logout();
   res.redirect('/');
@@ -123,11 +126,7 @@ function isLoggedIn(req, res, next) {
     return next();
   res.redirect('/login');
 }
-// function isOwner(req, res, next) {
-//   if (req.isAuthenticated() && req.params.username = req.user.local.username)
-//     return next();
-//   res.red
-// }
+////////////// Edit ///////////////////
 app.get("/edit", (req, res) => {
   db.collection('test').find().toArray((err, result) => {
     if (err) return console.log(err)
@@ -135,7 +134,7 @@ app.get("/edit", (req, res) => {
     res.render('edit', {quotes: result})
   })
 })
-
+////////////// add ///////////////////
 app.post('/add', (req, res) => {
     db.collection('test').save(req.body, (err, result) => {
     if (err) return console.log(err)
@@ -144,35 +143,19 @@ app.post('/add', (req, res) => {
     res.redirect('/')
   })
 });
+////////////// GET: newblog ///////////////////
 app.get('/newblog', isLoggedIn, (req, res) => {
-  // console.log(req.params);
   res.render('newblog');
 })
-// app.get('/:username/:title', (req, res) => {
-//   // console.log(req.params);
-//   console.log(req.params);
-//   // blogModel.findOne()
-//   res.render('newblog', {
-//     'username': req.params.username,
-//     'title': req.params.title
-//   });
-// })
-app.post('/place', isLoggedIn, (req, res) => {
-  // console.log(req.body);
-  // console.log(req.data);
-  console.log(req);
-})
-app.post('/post', isLoggedIn, (req, res, next) => {
-  console.log("this is the first step")
-  next()
-}, (req, res) => {
-  console.log(req.places);
+////////////// POST: post ///////////////////
+app.post('/post', isLoggedIn,(req, res) => {
+  // console.log(req.places);
   var blog = req.body;
   var user = req.user;
   var date = new Date();
   var title = blog.title;
-  console.log(blog);
-  console.log(user);
+  // console.log(blog);
+  // console.log(user);
   // console.log( );
   var newBlog = new blogModel();
   newBlog.owner.id = user._id;
@@ -181,13 +164,41 @@ app.post('/post', isLoggedIn, (req, res, next) => {
   newBlog.time = date.toString();
   newBlog.content = blog.content;
   newBlog.places = req.body.places;
+  newBlog.center = blog.centerLatLng;
+  newBlog.zoom = blog.zoomLevel;
   newBlog.save(function(err) {
     if (err) throw err;
   })
   res.send({redirect: '/'+ user.local.username + '/' + title});
 })
+app.get('/uploads/:filename', (req, res) => {
+  // console.log("heyyy");
+  // console.log(req);
+  // console.log(req.params.filename);
+  // console.log(path.resolve(req.params.filename));
+  var filepath = "uploads/" + req.params.filename;
+  // console.log(filepath);
+  // imageModel.findOne({
+  //   'coverImg.name' : req.params.filename},
+  //   function(err, result) {
+  //   if (err) throw (err);
+  //
+  //   var thumb = new Buffer(result.coverImg.data).toString('binary');
+  //   res.render('index', { title: 'Express', img: thumb});
+  // });
+  imageModel.findOne({
+    'coverImg.name' : req.params.filename
+  }, function(err, result) {
+    if (err) return handleError(err);
+    console.log(result);
+    // res.sendFile(path.resolve(filepath));
+    res.set("Content-Type", result.coverImg.contentType);
+    res.send(result.coverImg.data);
+  })
+  // res.sendFile(path.resolve(filepath));
+})
 
-
+////////////// GET: blog URL ///////////////////
 // after post, will direct to /:username/:title
 app.get('/:username/:title', (req, res) => {
   var owner = req.params.username;
@@ -215,11 +226,11 @@ app.get('/:username/:title', (req, res) => {
   }
   )
 })
-
+////////////// Save after Edit ///////////////////
 app.post('/save', (req, res) => {
     var blog = req.body;
-    console.log(blog.name);
-    console.log(req.body);
+    // console.log(blog.name);
+    // console.log(req.body);
     db.collection('test').update(
       {id: blog.id},
       {
@@ -233,7 +244,7 @@ app.post('/save', (req, res) => {
     res.redirect('/')
   })
 });
-
+//////////////GET Profile(username) ///////////////////
 app.get('/:username', (req, res) => {
   var owner = req.params.username;
   var loggedIn = false;
@@ -258,13 +269,39 @@ app.get('/:username', (req, res) => {
     });
   }
   )
-  // res.render('profile', {
-    // user: req.user,
-    // username: req.params.username
-  // });
-
 })
 
+app.post('/uploadImg', multer({dest: './uploads/'}).single('upl'), (req, res) => {
+  // console.log(req);
+  console.log(req.file);
+  // console.log(req.body);
+  console.log(path.resolve(req.file.path));
+  var image = req.file;
+  var newImage = new imageModel();
+  newImage.coverImg.name = image.filename;
+  newImage.coverImg.contentType = image.mimetype;
+  newImage.coverImg.data = fs.readFileSync(image.path);
+  newImage.save(function(err) {
+    if (err) throw err;
+    console.log("image sent to data base");
+    res.json({
+      message: "OKiee",
+      filename: req.file.filename
+    })
+  });
+  // res.set('Content-Type', image.mimetype);
+  // res.send(fs.readFileSync(image.path));
+
+  // newImage.coverImg.
+  // res.json({
+  //   message: "OKiee",
+  //   filename: req.file.filename
+  // })
+})
+// app.get('/uploads/:filename', (req, res) => {
+//   console.log("heyyy");
+//   res.sendFile(path.resolve(req.params.filename));
+// })
 app.listen(3000, () => {
   console.log('listening on 3000')
 })

@@ -10,8 +10,17 @@ var blogSchema = mongoose.Schema({
         username     : String,
     },
     title : String,
+    coverImg : {
+      data: Buffer,
+      contentType : String,
+    },
     time : String,
     content : String,
+    zoom : String,
+    center : {
+      lat: String,
+      lng: String
+    },
     places : Array
 
 });

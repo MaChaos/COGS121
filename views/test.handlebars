@@ -9,12 +9,21 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="">
     <meta name="author" content="">
-    <script src='https://api.mapbox.com/mapbox-gl-js/v0.36.0/mapbox-gl.js'></script>
-    <link href='https://api.mapbox.com/mapbox-gl-js/v0.36.0/mapbox-gl.css' rel='stylesheet' />
+
     <link href="./css/index.css" rel="stylesheet"/>
     <script src="js/medium-editor.js"></script>
+    <script src="/js/jquery-3.2.1.js"></script>
+    <script src="/js/index.js"></script>
+    <script async defer
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCVX-hvAGl21JA0nBii3fNYTyec2SOKLqw&libraries=places&callback=initMap">
+    </script>
 </head>
 <body>
+  <form method="post" enctype="multipart/form-data" action="/">
+    <input type="text" name="title" placeholder="title" />
+    <input type="file" name="upl" />
+    <button type="submit">Submit</button>
+  </form>
   <div class="" id="textwindow">
     <ul>
       {{#each quotes}}
@@ -47,13 +56,6 @@
           <input type="text" id="pac-input" placeholder="Your next destination...">
         </div>
       </div>
-      <!-- dropdown -->
-      <!-- <div class="infowindow-content">
-        <img src="" width="16" height="16" class="place-icon"/>
-        <span id="place-name" class="title"></span><br />
-        <span id="place-address"></span>
-      </div> -->
-      <!-- destination list -->
       <p4>Destinations</p4>
       <div onclick="newDest()" class="addBtn">Add</div>
       <ul class="place-cards" id="place-cards">
@@ -84,12 +86,12 @@
     .addTo(mapping);
   </script> -->
 
-  <script async defer
+  <!-- <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCVX-hvAGl21JA0nBii3fNYTyec2SOKLqw&libraries=places&callback=initMap">
-  </script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-  <script src="./js/jquery.ajax-cross-origin.min.js"></script>
-  <script src="/js/index.js"></script>
+  </script> -->
+  <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> -->
+  <!-- <script src="./js/jquery.ajax-cross-origin.min.js"></script> -->
+  <!-- <script src="/js/index.js"></script> -->
   <script src="./js/Sortable.js"></script>
   <script src="./js/turf.min.js"></script>
   <!-- <script src="js/medium-editor.js"></script> -->

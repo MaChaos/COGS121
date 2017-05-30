@@ -179,12 +179,22 @@
 
   {{#each places}}
   <script>
-    var place = '{{geo}}';
-    console.log('{{geo.lat}}');
-    var place = new google.maps.LatLng('{{geo.lat}}', '{{geo.lng}}')
+    // var place = '{{geo}}';
+    // console.log('{{geo.lat}}');
+    var place = new google.maps.LatLng('{{geo.lat}}', '{{geo.lng}}');
     addMarker(place);
+    // var center = new google.maps.LatLng('{{geo.center.lat}}', '{{geo.center.lng}}');
+    // console.log(center);
+    // console.log('{{geo.zoom}}');
+    // map.setCenter(center);
+    // map.setZoom(parseInt('{{geo.zoom}}'));
   </script>
   {{/each}}
+  <script>
+    var center = new google.maps.LatLng('{{blog.center.lat}}', '{{blog.center.lng}}');
+    map.setCenter(center);
+    map.setZoom(parseInt('{{blog.zoom}}'));
+  </script>
 
 </body>
 </html>
