@@ -10,10 +10,7 @@ var blogSchema = mongoose.Schema({
         username     : String,
     },
     title : String,
-    coverImg : {
-      data: Buffer,
-      contentType : String,
-    },
+    coverURL : String,
     time : String,
     content : String,
     zoom : String,

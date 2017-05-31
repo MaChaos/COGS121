@@ -10,6 +10,7 @@ var marker;
 var place_list;
 var geo_list = [];
 function initializePage() {
+  // document.getElementById('cover-image').addEventListener("change", uploadImage);
 }
 
 // use Google Maps API to create a mapbox
@@ -59,6 +60,7 @@ function uploadPlacesToDb() {
       places: place_list,
       title: $('#blog-title').val(),
       content: $('#blog-content').val(),
+      coverURL: $('#first-slide').attr('src'),
       zoomLevel: zoom,
       centerLatLng: {
         lat: center.lat(),
@@ -238,7 +240,7 @@ function uploadImage(){
     enctype: 'multipart/form-data',
     processData: false,
     success: function (res) {
-      // console.log(res);
+      console.log("success");
       var tempPath = "/uploads/" + res.filename;
       $("#first-slide").attr("src", tempPath);
       // $('#response').text(res.message);

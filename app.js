@@ -145,7 +145,9 @@ app.post('/add', (req, res) => {
 });
 ////////////// GET: newblog ///////////////////
 app.get('/newblog', isLoggedIn, (req, res) => {
-  res.render('newblog');
+  res.render('newblog', {
+    hasCover: false
+  });
 })
 ////////////// POST: post ///////////////////
 app.post('/post', isLoggedIn,(req, res) => {
@@ -166,6 +168,7 @@ app.post('/post', isLoggedIn,(req, res) => {
   newBlog.places = req.body.places;
   newBlog.center = blog.centerLatLng;
   newBlog.zoom = blog.zoomLevel;
+  newBlog.coverURL = blog.coverURL;
   newBlog.save(function(err) {
     if (err) throw err;
   })
@@ -177,6 +180,7 @@ app.get('/uploads/:filename', (req, res) => {
   // console.log(req.params.filename);
   // console.log(path.resolve(req.params.filename));
   var filepath = "uploads/" + req.params.filename;
+  console.log("AM I HERE?");
   // console.log(filepath);
   // imageModel.findOne({
   //   'coverImg.name' : req.params.filename},

@@ -125,10 +125,17 @@
           {{img}}
           <form id="cover-image">
             <input type="text" name="title" placeholder="title" />
-            <input type="file" name="upl" />
+            <label for="cover" >Change Cover Photo</label>
+            <input id="cover" type="file" name="upl"/>
             <button onclick="uploadImage()" type="submit">Submit</button>
           </form>
-
+          <script>
+          $(function(){
+            $("#cover").change(function(){
+                $("#cover-image").submit(uploadImage());
+            });
+          });
+          </script>
           {{#each quotes}}
           <div class="blog-post">
               <h2 class="blog-post-title">
