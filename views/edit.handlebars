@@ -1,4 +1,4 @@
-<!-- edit -->
+<!-- newblog -->
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,18 +10,26 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="">
     <meta name="author" content="">
-
-    <link href="/css/index.css" rel="stylesheet"/>
+    <link href="/css/bootstrap/bootstrap.css" rel="stylesheet"/>
     <link href="/css/bootstrap/carousel.css" rel="stylesheet"/>
     <link href="/css/bootstrap/blog.css" rel="stylesheet"/>
-    <link href="/css/bootstrap/bootstrap.css" rel="stylesheet"/>
-    <script src="js/medium-editor.js"></script>
+    <link href="/css/index.css" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css?family=Fredericka+the+Great" rel="stylesheet">
+    <!-- <script async defer
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCVX-hvAGl21JA0nBii3fNYTyec2SOKLqw&libraries=places&callback=initMap">
+    </script> -->
+    <script src="/js/medium-editor.js"></script>
+    <script src="/js/jquery-3.2.1.js"></script>
+    <script src="/js/index.js"></script>
+    <script async defer
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCVX-hvAGl21JA0nBii3fNYTyec2SOKLqw&libraries=places&callback=initMap">
+    </script>
 </head>
 <body>
   <div class="navbar-wrapper">
       <div class="container">
 
-        <nav class="navbar navbar-static-top color-white">
+        <nav class="navbar navbar-static-top">
           <div class="container">
             <div class="navbar-header">
               <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -30,14 +38,14 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
               </button>
-              <a class="navbar-brand color-white" href="#">Travel U&Me</a>
+              <a class="navbar-brand font-ftg" href="/{{currentUser}}">Travel U&Me</a>
             </div>
             <div id="navbar" class="navbar-collapse collapse">
-              <ul class="nav navbar-nav">
-                <li class="active"><a href="#">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#contact">Contact</a></li>
-                <li class="dropdown">
+              <ul class="nav navbar-nav float-right">
+                <!-- <li class="active"><a href="#">Home</a></li> -->
+                <!-- <li><a href="#about">About</a></li> -->
+                <!-- <li><a href="#contact">Contact</a></li> -->
+                <!-- <li class="dropdown">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
                   <ul class="dropdown-menu">
                     <li><a href="#">Action</a></li>
@@ -48,7 +56,17 @@
                     <li><a href="#">Separated link</a></li>
                     <li><a href="#">One more separated link</a></li>
                   </ul>
-                </li>
+                </li> -->
+                {{#if loggedIn}}
+                  <!-- {{#if isOwner}}
+                  <li>
+                    <a href="/save">Save</a>
+                  </li>
+                  {{/if}} -->
+                <li><a href="/{{currentUser}}">{{currentUser}}</a></li>
+                {{else}}
+                <li><a href="/login">Login</a></li>
+                {{/if}}
               </ul>
             </div>
           </div>
@@ -57,47 +75,41 @@
       </div>
     </div>
 
+    <!-- <script>
+      document.getElementById('cover-image').addEventListener("change", function(){
+        console.log("**********");
+      });
+    </script> -->
 
     <!-- Carousel
     ================================================== -->
     <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="false">
-      <!-- Indicators -->
-      <ol class="carousel-indicators">
+
+      <!-- <ol class="carousel-indicators">
         <li data-target="#myCarousel" data-slide-to="0" class="active" ></li>
         <li data-target="#myCarousel" data-slide-to="1"></li>
         <li data-target="#myCarousel" data-slide-to="2"></li>
-      </ol>
+      </ol> -->
       <div class="carousel-inner" role="listbox">
         <div class="item active">
-          <img class="first-slide" src="/img/copenhagen/sandro-katalina-61692.jpg" alt="First slide">
+          <img id="first-slide" class="first-slide" src="{{blog.coverURL}}" alt="First slide">
           <div class="container">
-            <div class="carousel-caption">
-              <h1>{{title}}</h1>
-              <p>Copenhagen, Denmark’s capital, sits on the coastal islands of Zealand and Amager. It’s linked to Malmo in southern Sweden by the Öresund Bridge. Indre By, the city's historic center, contains Frederiksstaden, an 18th-century rococo district, home to the royal family’s Amalienborg Palace. Nearby is Christiansborg Palace and the Renaissance-era Rosenborg Castle, surrounded by gardens and home to the crown jewels.</p>
+            <p>
 
-            </div>
+
+            <form id="cover-image" class="carousel-caption">
+              <!-- <input type="text" name="title" placeholder="title" /> -->
+              <label class="btn btn-lg btn-primary" for="cover" >Choose Your Cover Photo</label>
+              <input class="hidden" id="cover" type="file" name="upl" />
+              <button class="btn btn-lg btn-primary" onclick="uploadImage()" type="submit" >Submit</button>
+            </form>
+            <!-- <script>
+              document.getElementById('cover-image').addEventListener("change", uploadImage);
+            </script> -->
+            </p>
           </div>
         </div>
-        <div class="item">
-          <img class="second-slide" src="/img/copenhagen/samuel-foster-217168.jpg" alt="Second slide">
-          <div class="container">
-            <div class="carousel-caption">
-              <h1>My Copenhagen</h1>
-              <p>Copenhagen, Denmark’s capital, sits on the coastal islands of Zealand and Amager. It’s linked to Malmo in southern Sweden by the Öresund Bridge. Indre By, the city's historic center, contains Frederiksstaden, an 18th-century rococo district, home to the royal family’s Amalienborg Palace. Nearby is Christiansborg Palace and the Renaissance-era Rosenborg Castle, surrounded by gardens and home to the crown jewels.</p>
-              <p>
-            </div>
-          </div>
-        </div>
-        <div class="item">
-          <img class="third-slide" src="/img/copenhagen/johan-mouchet-97136.jpg" alt="Third slide">
-          <div class="container">
-            <div class="carousel-caption">
-              <h1>My Copenhagen</h1>
-              <p>Copenhagen, Denmark’s capital, sits on the coastal islands of Zealand and Amager. It’s linked to Malmo in southern Sweden by the Öresund Bridge. Indre By, the city's historic center, contains Frederiksstaden, an 18th-century rococo district, home to the royal family’s Amalienborg Palace. Nearby is Christiansborg Palace and the Renaissance-era Rosenborg Castle, surrounded by gardens and home to the crown jewels.</p>
-              <p>
-            </div>
-          </div>
-        </div>
+
       </div>
       <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
         <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
@@ -107,33 +119,28 @@
         <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
         <span class="sr-only">Next</span>
       </a>
-    </div><!-- /.carousel -->
-    <div class="container">
+    </div>
+    <div class="container edit-container">
 
 
       <div class="row">
         <div class="col-sm-7 blog-main padding-left-zero">
           <div class="blog-post">
+            <!-- <form action="/post" method="POST" autocomplete="off">
+              <input id="blog-title" class="blog-edit-title" type="text" placeholder="Title" name="title">
+              <input id="blog-content" class="blog-edit-meta" type="text" placeholder="Share your wonderful journey with everyone!" name="content">
+              <button onclick="uploadPlacesToDb()" type="submit">Submit</button>
+            </form> -->
+            <!-- <form autocomplete="off"> -->
+            <span hidden id="blog-id">
+              {{blog._id}}
+              {{blog._id.$oid}}
+            </span>
+              <input id="blog-title" class="blog-edit-title" type="text" value="{{blog.title}}" name="title">
+              <textarea id="blog-content" class="blog-edit-meta" type="text"  name="content">{{blog.content}}</textarea>
 
-              <h2 class="blog-post-title">
-              </h2>
-              <p class="blog-post-meta">
-
-              </p>
-              <div class="blog-post-content">
-              </div>
-            <!-- <ul>
-              {{#each quotes}}
-                <li>
-                  {{{name}}} {{{quote}}}
-                </li>
-              {{/each}}
-            </ul> -->
-            <form action="/post" method="POST" autocomplete="off">
-              <input class="blog-edit-title" type="text" placeholder="Title" name="title">
-              <input class="blog-edit-meta" type="text" placeholder="Share your wonderful journey with everyone!" name="content">
-              <button type="submit">Submit</button>
-            </form>
+              <button onclick="save()" >Save</button>
+            <!-- </form> -->
           </div>
         </div>
 
@@ -165,19 +172,32 @@
       </div>
     </div>
   </div>
-  <script src="/js/index.js"></script>
-  <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCVX-hvAGl21JA0nBii3fNYTyec2SOKLqw&libraries=places&callback=initMap">
-  </script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-  <script src="./js/jquery.ajax-cross-origin.min.js"></script>
+  <script src="/js/blog.js"></script>
+  <script src="/js/jquery.ajax-cross-origin.min.js"></script>
   <script src="/js/bootstrap.js"></script>
   <script src="/js/Sortable.js"></script>
   <script src="/js/turf.min.js"></script>
   <!-- <script src="js/medium-editor.js"></script> -->
-  <link rel="stylesheet" href="css/medium-editor.css">
-  <link rel="stylesheet" href="css/themes/default.css">
+  <link rel="stylesheet" href="/css/medium-editor.css">
+  <link rel="stylesheet" href="/css/themes/default.css">
 
-
+  {{#each places}}
+  <script>
+    // var place = '{{geo}}';
+    // console.log('{{geo.lat}}');
+    var place = new google.maps.LatLng('{{geo.lat}}', '{{geo.lng}}');
+    addMarker(place);
+    // var center = new google.maps.LatLng('{{geo.center.lat}}', '{{geo.center.lng}}');
+    // console.log(center);
+    // console.log('{{geo.zoom}}');
+    // map.setCenter(center);
+    // map.setZoom(parseInt('{{geo.zoom}}'));
+  </script>
+  {{/each}}
+  <script>
+    var center = new google.maps.LatLng('{{blog.center.lat}}', '{{blog.center.lng}}');
+    map.setCenter(center);
+    map.setZoom(parseInt('{{blog.zoom}}'));
+  </script>
 </body>
 </html>

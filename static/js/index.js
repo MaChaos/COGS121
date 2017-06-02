@@ -10,9 +10,30 @@ var marker;
 var place_list;
 var geo_list = [];
 function initializePage() {
-  // document.getElementById('cover-image').addEventListener("change", uploadImage);
+  console.log(document.getElementById('blog-id').innerHTML);
 }
-
+function routeplan() {
+  var origin_auto = new google.maps.places.Autocomplete(document.getElementById('origin_0'));
+  origin_auto.addListener('place_changed', function(){
+    var origin = origin_auto.getPlace();
+    if (!origin.geometry) {
+      window.alert("No details for input");
+      return;
+    }
+    console.log(origin);
+  });
+  var destination_auto = new google.maps.places.Autocomplete(document.getElementById('dest_0'));
+  destination_auto.addListener('place_changed', function(){
+    var destination = destination_auto.getPlace();
+    if (!destination.geometry) {
+      window.alert("No details for input");
+      return;
+    }
+    console.log(destination);
+  });
+  // console.log(origin);
+  // console.log(destination);
+}
 // use Google Maps API to create a mapbox
 function initMap() {
 
@@ -23,7 +44,7 @@ function initMap() {
     center: geisel,
 
   });
-
+  // routeplan();
   var input = document.getElementById('pac-input');
   var autocomplete = new google.maps.places.Autocomplete(input);
   autocomplete.addListener('place_changed', function(){
@@ -75,6 +96,27 @@ function uploadPlacesToDb() {
   )
 }
 
+function save() {
+  $.post("/save",
+    {
+      id: document.getElementById('blog-id').innerHTML,
+      places: place_list,
+      title: $('#blog-title').val(),
+      content: $('#blog-content').val(),
+      coverURL: $('#first-slide').attr('src'),
+      zoomLevel: zoom,
+      centerLatLng: {
+        lat: center.lat(),
+        lng: center.lng()
+      }
+    },
+    function(data, status) {
+      if (status == 'success') {
+        window.location = data.redirect;
+      }
+    }
+  )
+}
 //Adds a marker to the map
 function addMarker(location) {
   // console.log("*******location Below*******");
@@ -143,6 +185,7 @@ function addPlaceInfo(place) {
       'geo': geo_list[i]
     };
     place_list.push(temp2);
+    console.log(place_list);
   }
   ////////////// add Route ///////////////////
   var length = place_list.length;
