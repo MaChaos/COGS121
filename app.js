@@ -83,6 +83,9 @@ app.use(express.static(__dirname + '/static'));
 
 app.get('/', index.test);
 app.get('/index', index.view);
+app.get('/home', (req, res) => {
+  res.render('home');
+})
 
 app.get('/login', (req, res) => {
   res.render('login', {message: req.flash('loginMessage')});
@@ -127,12 +130,31 @@ function isLoggedIn(req, res, next) {
   res.redirect('/login');
 }
 ////////////// Edit ///////////////////
-app.get("/edit", (req, res) => {
-  db.collection('test').find().toArray((err, result) => {
-    if (err) return console.log(err)
-    // renders index.ejs
-    res.render('edit', {quotes: result})
-  })
+app.get("/:username/:title/edit", (req, res) => {
+  var owner = req.params.username;
+  var title = req.params.title;
+  var loggedIn = false;
+  var isOwner = false;
+  blogModel.findOne({
+    'owner.username' : owner,
+    'title' : title
+  }, function(err, result) {
+    if (err) return handleError(err);
+    if (req.isAuthenticated()) {
+      var currentUser = req.user.local.username
+      loggedIn = true;
+      if (owner = currentUser)
+        isOwner = true;
+    }
+    res.render('edit', {
+      loggedIn,
+      isOwner,
+      currentUser,
+      blog : result,
+      places : result.places
+    });
+  }
+  )
 })
 ////////////// add ///////////////////
 app.post('/add', (req, res) => {
@@ -172,29 +194,52 @@ app.post('/post', isLoggedIn,(req, res) => {
   newBlog.save(function(err) {
     if (err) throw err;
   })
+
   res.send({redirect: '/'+ user.local.username + '/' + title});
 })
+////////////// Save after Edit ///////////////////
+app.post('/save', isLoggedIn, (req, res) => {
+  // console.log(req.places);
+  var blog = req.body;
+  console.log(blog);
+  var user = req.user;
+
+  var date = new Date();
+  var title = blog.title;
+  console.log(title);
+  // console.log(blog);
+  // console.log(user);
+  // console.log( );
+  blogModel.findOne({
+    'owner.username' : user.local.username,
+    'title' : blog.title
+  }, function(err, result) {
+    if (err) throw err;
+    console.log(result);
+    result.title = blog.title;
+    result.content = blog.content;
+    result.coverURL = blog.coverURL;
+    result.zoomLevel = blog.zoomLevel;
+    result.center = blog.centerLatLng;
+    result.places.push(blog.places);
+    result.save(function(err) {
+      if (err) throw err;
+    })
+  })
+  res.send({redirect: '/'+ user.local.username + '/' + title});
+});
 app.get('/uploads/:filename', (req, res) => {
   // console.log("heyyy");
   // console.log(req);
   // console.log(req.params.filename);
   // console.log(path.resolve(req.params.filename));
   var filepath = "uploads/" + req.params.filename;
-  console.log("AM I HERE?");
-  // console.log(filepath);
-  // imageModel.findOne({
-  //   'coverImg.name' : req.params.filename},
-  //   function(err, result) {
-  //   if (err) throw (err);
-  //
-  //   var thumb = new Buffer(result.coverImg.data).toString('binary');
-  //   res.render('index', { title: 'Express', img: thumb});
-  // });
+  // console.log("AM I HERE?");
   imageModel.findOne({
     'coverImg.name' : req.params.filename
   }, function(err, result) {
     if (err) return handleError(err);
-    console.log(result);
+    // console.log(result);
     // res.sendFile(path.resolve(filepath));
     res.set("Content-Type", result.coverImg.contentType);
     res.send(result.coverImg.data);
@@ -230,24 +275,7 @@ app.get('/:username/:title', (req, res) => {
   }
   )
 })
-////////////// Save after Edit ///////////////////
-app.post('/save', (req, res) => {
-    var blog = req.body;
-    // console.log(blog.name);
-    // console.log(req.body);
-    db.collection('test').update(
-      {id: blog.id},
-      {
-        name: blog.name,
-        quote: blog.quote
-      },
-      (err, result) => {
-    if (err) return console.log(err)
 
-    console.log('saved to database')
-    res.redirect('/')
-  })
-});
 //////////////GET Profile(username) ///////////////////
 app.get('/:username', (req, res) => {
   var owner = req.params.username;
@@ -277,9 +305,9 @@ app.get('/:username', (req, res) => {
 
 app.post('/uploadImg', multer({dest: './uploads/'}).single('upl'), (req, res) => {
   // console.log(req);
-  console.log(req.file);
+  // console.log(req.file);
   // console.log(req.body);
-  console.log(path.resolve(req.file.path));
+  // console.log(path.resolve(req.file.path));
   var image = req.file;
   var newImage = new imageModel();
   newImage.coverImg.name = image.filename;
