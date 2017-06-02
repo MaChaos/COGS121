@@ -1,0 +1,147 @@
+@font-face {
+	font-family: "Montserrat-Regular"
+	src:url(/css/fonts/Montserrat-Regular.otf);
+}
+
+#nav-border {
+	background-color: rgba(255, 255, 255, 0.2);
+	border-bottom: solid 1px #696969
+}
+
+#logo-font {
+	color: #59d0e1;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;	font-weight: bold;
+	font-size: 20px;
+	text-shadow: 0px 0px;
+}
+
+#nav-font {
+	color: #59d0e1;
+	font-family:  "Helvetica Neue", Helvetica, Arial, sans-serif;, Verdana, Geneva, sans-serif;
+	font-size: 16px;
+	/*font-family: Verdana, Geneva, sans-serif; */
+	text-shadow: 0px 0px;
+}
+
+#nav-collapse-btn {
+	   background-color: #b4afaf;
+}
+
+#bar {
+	background-color: #b4afaf;
+}
+
+#collapse_btn	{
+    border-color: #b4afaf;
+		&:hover,
+		&:focus {
+			background-color: #b4afaf;
+		}
+  }
+
+#grey-font {
+	color: #b4afaf;
+}
+
+#title-font {
+	font-family:  "Helvetica Neue", Helvetica, Arial, sans-serif;, Verdana, Geneva, sans-serif;
+}
+
+#submit-button {
+	background-color:#59d0e1;
+	background-image: linear-gradient(to bottom, #59d0e1 0%, #53bccc 100%);
+}
+#submit-button:hover, #submit-button:focus {
+	background-color:#59d0e1;
+}
+
+#custom-search-input{
+    padding: 3px;
+    border: solid 1px #E4E4E4;
+    border-radius: 6px;
+    background-color: #fff;
+    max-width: 500px;
+    margin: 0 auto;
+    flex-shrink: 3;
+}
+
+#custom-search-input input{
+    border: 0;
+    box-shadow: none;
+}
+
+#custom-search-input button{
+    margin: 2px 0 0 0;
+    background: none;
+    box-shadow: none;
+    border: 0;
+    color: #666666;
+    padding: 0 8px 0 10px;
+    border-left: solid 1px #ccc;
+}
+
+#custom-search-input button:hover{
+    border: 0;
+    box-shadow: none;
+    border-left: solid 1px #ccc;
+}
+
+#custom-search-input .glyphicon-search{
+    font-size: 23px;
+
+}
+
+
+.search-container {
+  width: 100%;
+   margin: 0;
+   padding: 10px;
+   padding-top: 50px;
+   padding-bottom: 100px;
+   background-color:#000
+   top: 0;
+   left: 0;
+
+}
+
+.title-search-container {
+	padding-bottom: 10px;
+}
+
+.subtext {
+	text-align: center;
+	color: #696969;
+}
+
+
+.title-text{
+	font-family:  "Helvetica Neue", Helvetica, Arial, sans-serif;, Verdana, Geneva, sans-serif;
+	font-size: 37px;
+	text-align: center;
+	padding-bottom: 35px;
+}
+
+.subsection-title {
+	font-family: Arial, Geneva, sans-serif;
+	font-size: 22px;
+	padding-bottom: 7px;
+	padding-left: 20px;
+	border-bottom-width: 1px;
+ 	border-bottom-style: solid;
+ 	border-bottom-color: grey;
+
+}
+
+
+
+.img {
+	position: absolute;
+    text-align: center; /*for centering images inside*/
+}
+#pop-img {
+    width: 300px; /*set the width or max-width*/
+    height: auto; /*this makes sure to maintain the aspect ratio*/
+    padding: 10px 8px 8px 5px;
+}
+
+

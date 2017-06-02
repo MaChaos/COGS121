@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Travel U&Me</title>
+
+  <!-- General META -->
+  <meta charset="utf-8" />
+  <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link href="/css/bootstrap/bootstrap.css" rel="stylesheet"/>
+    <link href="/css/bootstrap/carousel.css" rel="stylesheet"/>
+    <link href="/css/bootstrap/blog.css" rel="stylesheet"/>
+    <link href="/css/home.css" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css?family=Fredericka+the+Great" rel="stylesheet">
+    <!-- <script async defer
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCVX-hvAGl21JA0nBii3fNYTyec2SOKLqw&libraries=places&callback=initMap">
+    </script> -->
+    <script src="/js/medium-editor.js"></script>
+    <script src="/js/index.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script async defer
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCVX-hvAGl21JA0nBii3fNYTyec2SOKLqw&libraries=places&callback=initMap">
+    </script>
+
+  <!-- Fav Icon -->
+  <link href="/img/favicon.ico" rel="shortcut icon" type="image/x-icon">
+
+</head>
+
+<body>
+
+ <!-- NavBar (Logged In) -->
+
+<nav id="nav-border" id="main-nav" class="navbar navbar-collapse">
+<div class="container">
+  <div class="navbar-header">
+    <button id="collapse_btn" class="navbar-toggle" type="button" data-toggle="collapse" data-target="#myNavbar">
+      <span class="icon-bar" id="bar"></span>
+      <span class="icon-bar" id="bar"></span>
+      <span class="icon-bar" id="bar"></span>
+    </button>
+    <a href="/#!/" id="logo-font" class="navbar-brand">Travel U&Me</a>
+  </div>
+  <div class="collapse navbar-collapse" id="myNavbar">
+    <ul class="nav navbar-nav navbar-right">
+    {{#if loggedIn}}
+      <li class = "new-blog"><a id="nav-font" href=/newblog>New Diary</a></li>
+      <li class = "about"><a id="nav-font" href=#>About</a></li>
+      <li class="dropdown">
+        <a href="#" id="nav-font" class="dropdown-toggle" data-toggle="dropdown">
+          <span class="glyphicon glyphicon-user"></span> <span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu">
+          <li><a id="nav-font" href="/{{currentUser}}">{{currentUser}}'s Profile</a></li>
+          <li class="divider"></li>
+          <li>
+            <a href="/logout" id="grey-font">Sign Out</a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+    {{else}}
+      <li><a id="nav-font" href="/login">Login</a></li>
+     {{/if}}
+    </div>
+  </div>
+</nav>
+
+<div class="search-container">
+  <div class="title-search-container">
+  <h2 class="title-text">Journey to the Past</h2>
+   <!-- Search Box -->
+  <div id="custom-search-input">
+    <div class="input-group col-md-12">
+      <input type="text" class="form-control input-lg" placeholder="Search by city name" />
+      <span class="input-group-btn">
+        <button class="btn btn-info btn-lg" type="button">
+          <i class="glyphicon glyphicon-search"></i>
+        </button>
+      </span>
+    </div>
+  </div>
+  </div>
+  <h6 class="subtext">
+      <b>Popular Places:</b> New York City, London , Tokyo <h6>
+</div>
+    
+
+   <!-- Example Trips -->
+      <h2 class="subsection-title">Popular Trips</h2>
+      <div class="img">
+        <img id="pop-img" src="http://d6vrtzdlbankn.cloudfront.net/wp-content/uploads/2017/01/FEB17_0004_Singapore-1-700x420.jpg">
+        <img id="pop-img" src="https://img.grouponcdn.com/deal/2Xfi5tdvSJDf9LGKMn4E/SE-5760x3456/v1/c700x420.jpg">
+        <img id="pop-img" src="http://d6vrtzdlbankn.cloudfront.net/wp-content/uploads/2017/05/iStock-522136778-700x420.jpg">
+      </div>
+
+    </div>
+</body>
+
+</html>
