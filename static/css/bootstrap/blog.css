@@ -16,7 +16,7 @@ h6, .h6 {
   margin-top: 0;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: normal;
-  color: #333;
+  color: black;
 }
 
 
@@ -87,6 +87,9 @@ h6, .h6 {
   margin-bottom: 0;
   font-size: 60px;
   font-weight: normal;
+}
+.blog-post-owner {
+  color: #B2B2B2;
 }
 .blog-description {
   font-size: 20px;
