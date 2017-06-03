@@ -29,15 +29,41 @@ body {
   float: right;
 }
 .place-icon {
-  width: 16px;
-  height: 16px;
+/*  width: 12px;
+  height: 12px;
+  margin: 5px;*/
+  display: none;
 }
-.place-cards li {
-  border: 1px;
-  border-color: #0F0F0F;
-  border-style: dashed;
+
+.place-cards {
   list-style-type: none;
 }
+.place-cards li {
+  counter-increment: step-counter;
+  position: relative;
+  padding-bottom: 5px;
+}
+.place-cards li::before {
+  content: counter(step-counter, upper-alpha);
+  position: absolute;
+  left: 0;
+  top: 0;
+  font-weight: bold;
+  font-size: 150%;
+  color: black;
+  margin-bottom: 25px;
+  left: -40px;
+  border: 1px solid black;
+  border-radius: 50%;
+  padding: 0 8px;
+}
+.place-name {
+  font-weight: bold;
+}
+.place-address {
+  color: #B2B2B2;
+}
+
 /*new CSS for the Google Maps API*/
 #pac-input {
   background-color: #fff;
@@ -104,14 +130,19 @@ li .infowindow-content {
   text-align: center;
   padding-bottom: 5px;
 }
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  color: #B2B2B2;
+}
+::-moz-placeholder { /* Firefox 19+ */
+  color: #B2B2B2;
+}
 input {
   border-radius: 2px;
+  border: 0.5px solid #898989;
 /* border-style: none; */
   /*width: 80%;*/
   line-height: 3rem;
   height: 35px;
-
-  border: 0.5px solid #C4C4C4;
 }
 ul {
   -webkit-margin-before: 0;
