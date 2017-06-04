@@ -17,6 +17,10 @@
     <link href="./css/profile.css" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css?family=Aclonica|Contrail+One|Fredericka+the+Great|Ruslan+Display" rel="stylesheet">
     <script src="js/medium-editor.js"></script>
+    <script src="js/profile.js"></script>
+    <script async defer
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCVX-hvAGl21JA0nBii3fNYTyec2SOKLqw&libraries=places&callback=initMap">
+    </script>
 </head>
 <body>
   <nav class="navbar navbar-fixed-top">
@@ -55,15 +59,6 @@
   <div style="
     text-align: -webkit-center;
 ">
-
-    <!-- <div class="page-header text-center">
-        <a href="/logout" class="btn btn-default btn-sm">Logout</a>
-    </div> -->
-    <!-- <form action="/newblog" method="GET">
-      {{#if isOwner}}
-      <button type="submit">add a blog</button>
-      {{/if}}
-    </form> -->
 
     <!-- Carousel
     ================================================== -->
@@ -113,24 +108,28 @@
       </p>
     </div>
     <div>
+      <div id="map" style="height: 500px; width:100%">
 
-    {{#each blogs}}
-    <div class="card">
-      <a href="/{{owner.username}}/{{title}}">
-        <div class="blog-card">
-          <div class="card-image">
-            <img class="coverImg" src="{{coverURL}}"/>
+      </div>
+      {{#each blogs}}
+      <div class="card">
+        <a href="/{{owner.username}}/{{title}}">
+          <div class="blog-card">
+            <div class="card-image">
+              <img class="coverImg" src="{{coverURL}}"/>
+            </div>
+            <div class="card-title">
+              {{title}}
+            </div>
+            <div class="card-content">
+              {{content}}
+
+            </div>
+
           </div>
-          <div class="card-title">
-            {{title}}
-          </div>
-          <div class="card-content">
-            {{content}}
-          </div>
-        </div>
-      </a>
-    </div>
-    {{/each}}
+        </a>
+      </div>
+      {{/each}}
     </div>
   </div>
 
@@ -143,7 +142,15 @@
   <!-- <script src="js/medium-editor.js"></script> -->
   <link rel="stylesheet" href="css/medium-editor.css">
   <link rel="stylesheet" href="css/themes/default.css">
+  {{#each blogs}}
+    {{#each places}}
+  <script>
+  var place = new google.maps.LatLng('{{geo.lat}}', '{{geo.lng}}');
 
+  addMarker(place, '{{name}}', '{{addr}}');
+  </script>
+    {{/each}}
+  {{/each}}
 
 </body>
 </html>

@@ -14,7 +14,7 @@
     <link href="./css/bootstrap/carousel.css" rel="stylesheet"/>
     <link href="./css/bootstrap/login.css" rel="stylesheet"/>
     <link href="./css/index.css" rel="stylesheet"/>
-    <link href="./css/profile.css" rel="stylesheet"/>
+    <link href="./css/explore.css" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css?family=Aclonica|Contrail+One|Fredericka+the+Great|Ruslan+Display" rel="stylesheet">
     <script src="js/medium-editor.js"></script>
 </head>
@@ -112,7 +112,7 @@
         Journey Starts Here
       </p>
     </div>
-    <div>
+    <div class="columns">
 
     {{#each blogs}}
     <div class="card">
@@ -121,11 +121,14 @@
           <div class="card-image">
             <img class="coverImg" src="{{coverURL}}"/>
           </div>
-          <div class="card-title">
-            {{title}}
+          <div class="title-wrapper">
+            <div class="card-title">
+              {{title}}
+            </div>
           </div>
-          <div class="card-content">
-            {{content}}
+
+          <div hidden class="card-content">
+            {{owner.username}}
           </div>
         </div>
       </a>

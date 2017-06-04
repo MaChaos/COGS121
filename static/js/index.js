@@ -131,14 +131,25 @@ function save() {
 }
 
 //Adds a marker to the map
-function addMarker(location) {
+function addMarker(location, name, addr) {
   // console.log("*******location Below*******");
   // console.log(location);
-  var loc = location;
+  var infowindow = new google.maps.InfoWindow();
+  // var loc = location;
   marker = new google.maps.Marker({
-    position: loc,
+    position: location,
     map: map,
     animation: google.maps.Animation.DROP
+  });
+
+  google.maps.event.addListener(marker, 'click', function() {
+    infowindow.setContent('<div><strong>' + place.name + '</strong><br>' +
+      name + '<br>' +
+      addr + '</div>');
+    infowindow.open(map, this);
+  });
+  google.maps.event.addListener(map, "click",   function(event) {
+    infowindow.close();
   });
 }
 

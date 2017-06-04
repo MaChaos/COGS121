@@ -161,7 +161,7 @@
     // var place = '{{geo}}';
     // console.log('{{geo.lat}}');
     var place = new google.maps.LatLng('{{geo.lat}}', '{{geo.lng}}');
-    addMarker(place);
+    addMarker(place, '{{name}}', '{{addr}}');
   </script>
   {{/each}}
   <script>

@@ -86,7 +86,14 @@ app.get('/index', index.view);
 app.get('/home', (req, res) => {
   res.render('home');
 })
-
+app.get('/explore', (req, res) => {
+  blogModel.find(function(err, blog) {
+    if (err) return handleError(err);
+    res.render('explore', {
+      blogs: blog
+    })
+  })
+})
 app.get('/login', (req, res) => {
   res.render('login', {message: req.flash('loginMessage')});
 });
