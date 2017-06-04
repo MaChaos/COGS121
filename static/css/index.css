@@ -18,7 +18,9 @@ body {
   font-size: 25px;
   color: #073059;
 }
-
+.align-right {
+  text-align: right;
+}
 
 /*#textwindow {
   width: 48%;

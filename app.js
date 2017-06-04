@@ -156,6 +156,21 @@ app.get("/:username/:title/edit", (req, res) => {
   }
   )
 })
+////////////// delete ///////////////////
+app.get("/:username/:title/delete", (req, res) => {
+  blogModel.findOne({
+    'owner.username' : req.params.username,
+    'title' : req.params.title
+  }, function(err, result) {
+    // imageModel.findOne({
+    //   coverImage.name : result.
+    // })
+    result.remove();
+    console.log("blog is removed from db");
+    res.redirect('/' + req.params.username);
+  })
+})
+
 ////////////// add ///////////////////
 app.post('/add', (req, res) => {
     db.collection('test').save(req.body, (err, result) => {
@@ -229,6 +244,7 @@ app.post('/save', isLoggedIn, (req, res) => {
   })
   res.send({redirect: '/'+ user.local.username + '/' + title});
 });
+
 app.get('/uploads/:filename', (req, res) => {
   // console.log("heyyy");
   // console.log(req);
