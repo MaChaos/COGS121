@@ -4,7 +4,7 @@ exports.view = function (req, res) {
   db.collection('test').find().toArray((err, result) => {
     if (err) return console.log(err)
     // renders index.ejs
-    res.render('login')
+    res.render('index')
   })
 }
 exports.test = function (req, res) {

@@ -7,10 +7,14 @@ var map;
 var center;
 var zoom;
 var marker;
-var place_list;
+var place_list = [];
 var geo_list = [];
 function initializePage() {
-  console.log(document.getElementById('blog-id').innerHTML);
+  // console.log(document.getElementById('blog-id').innerHTML);
+}
+function setPlaceList(place) {
+  place_list.push(place);
+  // console.log(place_list);
 }
 function routeplan() {
   var origin_auto = new google.maps.places.Autocomplete(document.getElementById('origin_0'));
@@ -48,14 +52,21 @@ function initMap() {
   var input = document.getElementById('pac-input');
   var autocomplete = new google.maps.places.Autocomplete(input);
   autocomplete.addListener('place_changed', function(){
+
     var place = autocomplete.getPlace();
     if (!place.geometry) {
       window.alert("No details for input");
       return;
     }
-
+    if (place_list.length == 0) {
+      var extended_bound = place.geometry.viewport;
+    }
+    else {
+      var extended_bound = map.getBounds().extend(place.geometry.location);
+    }
+    // console.log(extended_bound);
     // set center and zoom
-    var extended_bound = map.getBounds().extend(place.geometry.location);
+    // var extended_bound = map.getBounds().extend(place.geometry.location);
     // centerAndZoom(extended_bound);
     var $mapDiv = $('#map');
     var mapDim = {height: $mapDiv.height(), width: $mapDiv.width()};
@@ -99,7 +110,7 @@ function uploadPlacesToDb() {
 function save() {
   $.post("/save",
     {
-      id: document.getElementById('blog-id').innerHTML,
+      // id: document.getElementById('blog-id').innerHTML,
       places: place_list,
       title: $('#blog-title').val(),
       content: $('#blog-content').val(),
@@ -112,6 +123,7 @@ function save() {
     },
     function(data, status) {
       if (status == 'success') {
+        console.log(data.redirect);
         window.location = data.redirect;
       }
     }
@@ -177,70 +189,78 @@ function addPlaceInfo(place) {
   });
   ////////////// create place_list(db) ///////////////////
   var elements = document.getElementById('place-cards').children;
-  place_list = [];
-  for (var i = 0; i < elements.length; i++) {
-    var temp1 = elements[i];
-    var temp2 = {
-      'addr': temp1.getElementsByClassName('place-address')[0].innerHTML,
-      'geo': geo_list[i]
-    };
-    place_list.push(temp2);
-    console.log(place_list);
+  // place_list = [];
+  var temp = {
+    'name': place.name,
+    'addr': address,
+    'geo': latlng
   }
+  place_list.push(temp);
+  console.log(place_list);
+  // for (var i = 0; i < elements.length; i++) {
+  //   var temp1 = elements[i];
+  //   var temp2 = {
+  //     'addr': temp1.getElementsByClassName('place-address')[0].innerHTML,
+  //     'geo': geo_list[i]
+  //   };
+  //   place_list.push(temp2);
+  //   console.log(place_list);
+  // }
+  addMarker(place.geometry.location,map);
   ////////////// add Route ///////////////////
-  var length = place_list.length;
-  if (length == 1)
-    addMarker(place.geometry.location,map);
-  else if (length == 2) {
-    marker.setMap(null);
-    addRoute(place_list, length);
-  }
-  else if (length > 2)
-    addRoute(place_list, length);
+  // var length = place_list.length;
+  // if (length == 1)
+  //   addMarker(place.geometry.location,map);
+  // else if (length == 2) {
+  //   marker.setMap(null);
+  //   addRoute(place_list, length);
+  // }
+  // else if (length > 2)
+  //   addRoute(place_list, length);
   // console.log("place-list: "+ place_list);
 }
 ////////////// func addRoute ///////////////////
-function addRoute(place_list, length) {
-  var directionsService = new google.maps.DirectionsService;
-  var directionsDisplay = new google.maps.DirectionsRenderer;
-  directionsDisplay.setMap(map);
-
-  var origin = place_list[0].addr;
-  var destination = place_list[place_list.length - 1].addr;
-  var waypoints = [];
-  var format;
-
-  // if more than 2 destinations, then add waypoints from place_list
-  if (length > 2) {
-    for (var i = 1; i < length - 1; i++) {
-      waypoints.push({
-        location: place_list[i].addr
-      });
-    }
-    console.log(waypoints);
-    displayRoute(origin, destination, waypoints, directionsService, directionsDisplay);
-  }
-  // only two destinations
-  else {
-    displayRoute(origin, destination, waypoints, directionsService, directionsDisplay);
-  }
-}
-
-function displayRoute(origin, destination, waypoints, service, display) {
-  service.route({
-    origin: origin,
-    destination: destination,
-    waypoints: waypoints,
-    travelMode: 'DRIVING',
-    avoidTolls: true
-  }, function(response, status) {
-    if (status === 'OK') {
-      display.setDirections(response);
-    } else {
-      alert('Could not display directions due to: ' + status);
-    }
-  });
-}
+// function addRoute(place_list, length) {
+//   var directionsService = new google.maps.DirectionsService;
+//   var directionsDisplay = new google.maps.DirectionsRenderer;
+//   directionsDisplay.setMap(map);
+//
+//   var origin = place_list[0].addr;
+//   var destination = place_list[place_list.length - 1].addr;
+//   var waypoints = [];
+//   var format;
+//
+//   // if more than 2 destinations, then add waypoints from place_list
+//   if (length > 2) {
+//     for (var i = 1; i < length - 1; i++) {
+//       waypoints.push({
+//         location: place_list[i].addr
+//       });
+//     }
+//     console.log(waypoints);
+//     displayRoute(origin, destination, waypoints, directionsService, directionsDisplay);
+//   }
+//   // only two destinations
+//   else {
+//     displayRoute(origin, destination, waypoints, directionsService, directionsDisplay);
+//   }
+// }
+//
+// function displayRoute(origin, destination, waypoints, service, display) {
+//   service.route({
+//     origin: origin,
+//     destination: destination,
+//     waypoints: waypoints,
+//     travelMode: 'DRIVING',
+//     avoidTolls: true
+//   }, function(response, status) {
+//     if (status === 'OK') {
+//       display.setDirections(response);
+//     } else {
+//       alert('Could not display directions due to: ' + status);
+//     }
+//   });
+// }
 
 function getBoundsZoomLevel(bounds, mapDim) {
     var WORLD_DIM = { height: 256, width: 256 };

@@ -221,7 +221,8 @@ app.post('/save', isLoggedIn, (req, res) => {
     result.coverURL = blog.coverURL;
     result.zoomLevel = blog.zoomLevel;
     result.center = blog.centerLatLng;
-    result.places.push(blog.places);
+    // result.places.push(blog.places);
+    result.places = blog.places;
     result.save(function(err) {
       if (err) throw err;
     })
