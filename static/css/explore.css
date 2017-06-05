@@ -19,6 +19,16 @@
 .card-title {
   font-size: 26px;
 }*/
+.divider {
+  position: relative;
+  margin-top: -50px;
+}
+#airplane {
+  width: 100%;
+}
+.carousel {
+  margin-bottom: 0px;
+}
 .addBtn {
   padding: 2px 6px 3px;
 border-width: 2px;

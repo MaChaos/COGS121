@@ -2,18 +2,6 @@
 var place_list = [];
 var map;
 var activateMap = false;
-$(document).ready(function() {
-  $('.slider').click(function(){
-    $('#map').toggleClass("hidden");
-    $('.content-blog').toggleClass("hidden");
-    // if (activateMap == false){
-    //   initMap();
-    // }
-  });
-  // $('#switch').click(function(){
-  //   $('#map').toggleClass("hidden");
-  // });
-})
 function initMap() {
 
   // create the map
@@ -204,7 +192,6 @@ function initMap() {
     }
 ]
   });
-  activateMap = true;
 }
 
 function addMarker(location, name, addr) {

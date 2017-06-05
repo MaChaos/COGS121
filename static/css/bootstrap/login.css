@@ -1,3 +1,14 @@
+#login-pic {
+  width: 100%;
+}
+.login{
+  width: 48%;
+  display: inline-block;
+}
+#map {
+  width: 48%;
+  height: 500px;
+}
 .form-signin {
   max-width: 330px;
   padding: 15px;
