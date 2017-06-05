@@ -156,7 +156,7 @@ app.get("/:username/:title/edit", (req, res) => {
   }, function(err, result) {
     if (err) return handleError(err);
     if (req.isAuthenticated()) {
-      var currentUser = req.user.local.username;
+      var currentUser = req.user.local.username
       loggedIn = true;
       if (owner = currentUser)
         isOwner = true;
