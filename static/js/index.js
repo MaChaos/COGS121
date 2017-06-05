@@ -231,6 +231,55 @@ function addPlaceInfo(place) {
   //   addRoute(place_list, length);
   // console.log("place-list: "+ place_list);
 }
+function addPlaceList(name, addr) {
+  var place_info = document.createElement('div');
+  place_info.className = "place-info";
+  // var address = addr;
+  // add icon
+  // var place_icon = document.createElement('img');
+  // place_icon.src = place.icon;
+  // place_icon.className = "place-icon"
+  // place_info.append(place_icon);
+
+  // add place name
+  var place_name = document.createElement('span');
+  place_name.textContent = name;
+  place_name.className = "place-name"
+  place_info.append(place_name);
+  place_info.append(document.createElement('br'));
+
+  // add place address
+  var place_addr = document.createElement('span');
+  place_addr.textContent = addr;
+  place_addr.className = "place-address"
+  place_info.append(place_addr);
+
+  var newli = document.createElement('li');
+  newli.append(place_info);
+  $("#place-cards").append(newli);
+
+  // for (var i = 0; i < elements.length; i++) {
+  //   var temp1 = elements[i];
+  //   var temp2 = {
+  //     'addr': temp1.getElementsByClassName('place-address')[0].innerHTML,
+  //     'geo': geo_list[i]
+  //   };
+  //   place_list.push(temp2);
+  //   console.log(place_list);
+  // }
+  // addMarker(place.geometry.location, place.name, address);
+  ////////////// add Route ///////////////////
+  // var length = place_list.length;
+  // if (length == 1)
+  //   addMarker(place.geometry.location,map);
+  // else if (length == 2) {
+  //   marker.setMap(null);
+  //   addRoute(place_list, length);
+  // }
+  // else if (length > 2)
+  //   addRoute(place_list, length);
+  // console.log("place-list: "+ place_list);
+}
 ////////////// func addRoute ///////////////////
 // function addRoute(place_list, length) {
 //   var directionsService = new google.maps.DirectionsService;

@@ -127,10 +127,6 @@
       <div class="row">
         <div class="col-sm-7 blog-main padding-left-zero">
           <div class="blog-post">
-            <span hidden id="blog-id">
-              {{blog._id}}
-              {{blog._id.$oid}}
-            </span>
               <input id="blog-title" class="blog-edit-title" type="text" value="{{blog.title}}" name="title">
               <textarea id="blog-content" class="blog-edit-meta" type="text"  name="content">{{blog.content}}</textarea>
 
@@ -214,7 +210,7 @@
         lng: '{{geo.lng}}'
       }
     });
-
+    addPlaceList('{{name}}', '{{addr}}');
   </script>
   {{/each}}
   <script>

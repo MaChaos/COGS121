@@ -56,7 +56,7 @@
                   </ul>
                 </li> -->
                 <li>
-                  <a href="/explore">Explore</a>
+                  <a class="navbar-btn" href="/explore">Explore</a>
                 </li>
                 {{#if loggedIn}}
                   {{#if isOwner}}
@@ -165,6 +165,7 @@
     // console.log('{{geo.lat}}');
     var place = new google.maps.LatLng('{{geo.lat}}', '{{geo.lng}}');
     addMarker(place, '{{name}}', '{{addr}}');
+    addPlaceList('{{name}}', '{{addr}}');
   </script>
   {{/each}}
   <script>
