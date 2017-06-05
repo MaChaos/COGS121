@@ -38,7 +38,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
               </button>
-              <a class="navbar-brand font-ftg" href="/{{currentUser}}">Travel U&Me</a>
+              <a class="navbar-brand font-ftg" href="/{{currentUser}}">uTravel</a>
             </div>
             <div id="navbar" class="navbar-collapse collapse">
               <ul class="nav navbar-nav float-right">
@@ -58,15 +58,16 @@
                 <li>
                   <a class="navbar-btn" href="/explore">Explore</a>
                 </li>
+
                 {{#if loggedIn}}
                   {{#if isOwner}}
                   <li>
-                    <a href="/{{currentUser}}/{{blog.title}}/edit">Edit</a>
+                    <a class="navbar-btn" href="/{{currentUser}}/{{blog.title}}/edit">Edit</a>
                   </li>
                   {{/if}}
-                <li><a href="/{{currentUser}}">{{currentUser}}</a></li>
+                <li><a class="navbar-btn" href="/{{currentUser}}">{{currentUser}}</a></li>
                 {{else}}
-                <li><a href="/login">Login</a></li>
+                <li><a class="navbar-btn" href="/login">Login</a></li>
                 {{/if}}
               </ul>
             </div>

@@ -64,15 +64,15 @@ a:hover {
   font-family: 'Contrail One', cursive;
 }
 .card-content {
-  max-height: 150px;
-overflow: hidden;
-padding-top: 6px;
-border-radius: 0;
-margin-bottom: 0;
-padding: 13px;
-text-align: -webkit-left;
-font-size: 13px;
-color: #6F6F6F;
+  max-height: 160px;
+  overflow: hidden;
+  padding-top: 6px;
+  border-radius: 0;
+  margin-bottom: 0;
+  padding: 13px;
+  text-align: -webkit-left;
+  font-size: 13px;
+  color: #6F6F6F;
 
 }
 /*for toggle */
