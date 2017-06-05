@@ -17,10 +17,13 @@
     <link href="./css/profile.css" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css?family=Aclonica|Contrail+One|Fredericka+the+Great|Ruslan+Display" rel="stylesheet">
     <script src="js/medium-editor.js"></script>
-    <script src="js/profile.js"></script>
+    <script src="./js/jquery-3.2.1.js"></script>
+    <!-- <script src="js/profile.js"></script> -->
+
     <script async defer
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCVX-hvAGl21JA0nBii3fNYTyec2SOKLqw&libraries=places&callback=initMap">
     </script>
+    <script src="js/profile.js"></script>
 </head>
 <body>
   <nav class="navbar navbar-fixed-top">
@@ -106,34 +109,42 @@
       <p class="intro font-ftg">
         Journey Starts Here
       </p>
+      <!-- <label id="switch" class="switch">
+        <input type="checkbox">
+        <div class="slider round"></div>
+      </label> -->
     </div>
     <div>
-      <div id="map" style="height: 500px; width:100%">
+      <div class="content-blog">
+
+
+        {{#each blogs}}
+        <div class="card">
+          <a href="/{{owner.username}}/{{title}}">
+            <div class="blog-card">
+              <div class="card-image">
+                <img class="coverImg" src="{{coverURL}}"/>
+              </div>
+              <div class="card-title">
+                {{title}}
+              </div>
+              <div class="card-content">
+                {{content}}
+
+              </div>
+
+            </div>
+          </a>
+        </div>
+        {{/each}}
+      </div>
+      <div class="" id="map" style="height: 500px; width:80%">
 
       </div>
-      {{#each blogs}}
-      <div class="card">
-        <a href="/{{owner.username}}/{{title}}">
-          <div class="blog-card">
-            <div class="card-image">
-              <img class="coverImg" src="{{coverURL}}"/>
-            </div>
-            <div class="card-title">
-              {{title}}
-            </div>
-            <div class="card-content">
-              {{content}}
-
-            </div>
-
-          </div>
-        </a>
-      </div>
-      {{/each}}
     </div>
   </div>
 
-  <script src="./js/jquery-3.2.1.js"></script>
+
   {{> facebook}}
   <script src="./js/login.js"></script>
   <script src="./js/bootstrap.js"></script>

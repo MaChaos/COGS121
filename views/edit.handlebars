@@ -205,7 +205,7 @@
   {{#each places}}
   <script>
     var place = new google.maps.LatLng('{{geo.lat}}', '{{geo.lng}}');
-    addMarker(place);
+    addMarker(place, '{{name}}', '{{addr}}');
     setPlaceList({
       name: '{{name}}',
       addr: '{{addr}}',

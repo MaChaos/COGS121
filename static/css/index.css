@@ -140,9 +140,9 @@ li .infowindow-content {
 }
 input {
   border-radius: 2px;
-  border: 0.5px solid #898989;
-/* border-style: none; */
-  /*width: 80%;*/
+  /*border: 0.5px solid #898989;*/
+  border: none;
+  border-bottom: 0.5px dashed #898989;
   line-height: 3rem;
   height: 35px;
 }

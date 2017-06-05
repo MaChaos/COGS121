@@ -143,8 +143,7 @@ function addMarker(location, name, addr) {
   });
 
   google.maps.event.addListener(marker, 'click', function() {
-    infowindow.setContent('<div><strong>' + place.name + '</strong><br>' +
-      name + '<br>' +
+    infowindow.setContent('<div><strong>' + name + '</strong><br>' +
       addr + '</div>');
     infowindow.open(map, this);
   });
@@ -185,6 +184,7 @@ function addPlaceInfo(place) {
   var newli = document.createElement('li');
   newli.append(place_info);
   $("#place-cards").append(newli);
+  // $('#blog-content').append(newli);
   var place_cards = document.getElementById('place-cards');
 
 
@@ -218,7 +218,7 @@ function addPlaceInfo(place) {
   //   place_list.push(temp2);
   //   console.log(place_list);
   // }
-  addMarker(place.geometry.location,map);
+  addMarker(place.geometry.location, place.name, address);
   ////////////// add Route ///////////////////
   // var length = place_list.length;
   // if (length == 1)
